@@ -7,23 +7,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PartenaireDiffusionRepository::class)]
 #[ORM\Table(name: 'PartenaireDiffusion')]
-class PartenaireDiffusion
+class PartenaireDiffusion extends Utilisateur
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Entreprise')]
+    #[ORM\Column(name: 'Entreprise', length: 50)]
     private ?string $entreprise = null;
 
-    #[ORM\Column(type: 'boolean', name: 'Verifie')]
+    #[ORM\Column(name: 'Verifie', type: 'boolean')]
     private ?bool $verifie = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getEntreprise(): ?string
     {

@@ -63,8 +63,8 @@ class Casting
     #[ORM\Column(name: 'Verifie')]
     private ?bool $verifie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Casting')]
-    #[ORM\JoinColumn(name: 'Identifiant_Professionnel',nullable: true)]
+    #[ORM\ManyToOne(inversedBy: 'Casting', targetEntity: Professionnel::class)]
+    #[ORM\JoinColumn(name: 'Identifiant_Professionnel', nullable: true, referencedColumnName: 'Identifiant')]
     private ?Professionnel $professionnel = null;
 
     #[ORM\ManyToMany(targetEntity: Sexe::class, inversedBy: 'castings')]

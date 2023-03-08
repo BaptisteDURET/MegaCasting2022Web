@@ -23,13 +23,9 @@ class Metier
     #[ORM\JoinTable(name: 'Cherche')]
     private Collection $castings;
 
-    #[ORM\ManyToOne(inversedBy: 'metiers')]
-    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', nullable: false)]
+    #[ORM\ManyToOne(inversedBy: 'metiers', targetEntity: DomaineMetier::class)]
+    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', nullable: false, referencedColumnName: 'Identifiant')]
     private ?DomaineMetier $domaineMetier = null;
-
-    #[ORM\ManyToOne(inversedBy: 'metiers')]
-    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier')]
-    private ?DomaineMetier $DomaineMetier = null;
 
     public function __construct()
     {

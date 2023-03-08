@@ -7,20 +7,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InterviewRepository::class)]
 #[ORM\Table(name: 'Interview')]
-class Interview
+class Interview extends ContenuEditorial
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 200, name: 'Lien')]
+    #[ORM\Column(name: 'Lien', length: 200)]
     private ?string $lien = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getLien(): ?string
     {

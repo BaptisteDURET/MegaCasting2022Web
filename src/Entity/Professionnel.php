@@ -9,13 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ProfessionnelRepository::class)]
 #[ORM\Table(name: 'Professionnel')]
-class Professionnel
+class Professionnel extends Utilisateur
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
-
     #[ORM\Column(length: 50, name: 'Entreprise')]
     private ?string $entreprise = null;
 
@@ -32,11 +27,6 @@ class Professionnel
     {
         $this->packDeCastings = new ArrayCollection();
         $this->Casting = new ArrayCollection();
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
     }
 
     public function getEntreprise(): ?string

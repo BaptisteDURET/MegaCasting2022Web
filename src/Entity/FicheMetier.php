@@ -8,24 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: FicheMetierRepository::class)]
 #[ORM\Table(name: 'FicheMetier')]
-class FicheMetier
+class FicheMetier extends ContenuEditorial
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
-
-    #[ORM\Column(type: Types::TEXT, name: 'Description')]
+    #[ORM\Column(name: 'Description', type: Types::TEXT)]
     private ?string $description = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(name: 'Identifiant_Metier', nullable: false)]
+    #[ORM\OneToOne(targetEntity: Metier::class, cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'Identifiant_Metier', referencedColumnName: 'Identifiant', nullable: false)]
     private ?Metier $Metier = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDescription(): ?string
     {

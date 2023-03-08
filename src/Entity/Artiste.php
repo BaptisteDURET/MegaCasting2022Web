@@ -7,30 +7,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtisteRepository::class)]
 #[ORM\Table(name: 'Artiste')]
-class Artiste
+class Artiste extends Utilisateur
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
-
-    #[ORM\Column(length: 200, name: 'CV')]
+    #[ORM\Column(name: 'CV', length: 200)]
     private ?string $cv = null;
 
-    #[ORM\Column(length: 50, name: 'Nom')]
+    #[ORM\Column(name: 'Nom', length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 50, name: 'Prenom')]
+    #[ORM\Column(name: 'Prenom', length: 50)]
     private ?string $prenom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'artistes')]
-    #[ORM\JoinColumn(name: 'Identifiant_Sexe',nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'artistes')]
+    #[ORM\JoinColumn(name: 'Identifiant_Sexe', referencedColumnName: 'Identifiant', nullable: false)]
     private ?Sexe $sexe = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getCv(): ?string
     {

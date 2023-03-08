@@ -8,20 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ConseilRepository::class)]
 #[ORM\Table(name: 'Conseil')]
-class Conseil
+class Conseil extends ContenuEditorial
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column(name: 'Identifiant')]
-    private ?int $id = null;
-
     #[ORM\Column(type: Types::TEXT, name: 'Description')]
     private ?string $description = null;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getDescription(): ?string
     {
