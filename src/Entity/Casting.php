@@ -14,49 +14,49 @@ class Casting
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 60)]
+    #[ORM\Column(length: 60, name: 'Reference')]
     private ?string $Reference = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, name: 'Intitule')]
     private ?string $Intitule = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'DateDebutPublication')]
     private ?\DateTimeInterface $DateDebutPublication = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, name: 'DureeDiffusion')]
     private ?int $DureeDiffusion = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[ORM\Column(type: Types::DATE_MUTABLE, name: 'DateDebutContrat')]
     private ?\DateTimeInterface $DateDebutContrat = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, name: 'NombrePosteDispo')]
     private ?int $NombrePosteDispo = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, name: 'Localisation')]
     private ?string $Localisation = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, name: 'Description')]
     private ?string $Description = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, name: 'DescriptionProfilRecherche')]
     private ?string $DescriptionProfilRecherche = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150, nullable: true, name: 'Email')]
     private ?string $Email = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(length: 15, nullable: true, name: 'NumeroTelephone')]
     private ?string $NumeroTelephone = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150, nullable: true, name: 'Fax')]
     private ?string $Fax = null;
 
-    #[ORM\Column(length: 100, nullable: true)]
+    #[ORM\Column(length: 100, nullable: true, name: 'SiteWeb')]
     private ?string $SiteWeb = null;
 
-    #[ORM\Column(length: 200, nullable: true)]
+    #[ORM\Column(length: 200, nullable: true, name: 'AdressePostale')]
     private ?string $AdressePostale = null;
 
-    #[ORM\Column]
+    #[ORM\Column(name: 'Verifie')]
     private ?bool $Verifie = null;
 
     public function getId(): ?int

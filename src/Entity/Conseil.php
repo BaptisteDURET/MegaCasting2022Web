@@ -14,7 +14,7 @@ class Conseil
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, name: 'Description')]
     private ?string $Description = null;
 
     public function getId(): ?int

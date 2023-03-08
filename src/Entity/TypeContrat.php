@@ -13,10 +13,10 @@ class TypeContrat
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 10)]
+    #[ORM\Column(length: 10, name: 'LibelleCourt')]
     private ?string $LibelleCourt = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'LibelleLong')]
     private ?string $LibelleLong = null;
 
     public function getId(): ?int

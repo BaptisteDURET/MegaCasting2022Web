@@ -19,16 +19,16 @@ class Utilisateur
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Nom')]
     private ?string $Nom = null;
 
-    #[ORM\Column(length: 80)]
+    #[ORM\Column(length: 80, name: 'MotDePasse')]
     private ?string $MotDePasse = null;
 
-    #[ORM\Column(length: 15, nullable: true)]
+    #[ORM\Column(length: 15, nullable: true, name: 'NumeroTelephone')]
     private ?string $NumeroTelephone = null;
 
-    #[ORM\Column(length: 150, nullable: true)]
+    #[ORM\Column(length: 150, nullable: true, name: 'Email')]
     private ?string $Email = null;
 
     public function getId(): ?int

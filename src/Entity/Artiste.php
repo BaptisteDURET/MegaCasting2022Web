@@ -13,13 +13,13 @@ class Artiste
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 200)]
+    #[ORM\Column(length: 200, name: 'CV')]
     private ?string $CV = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Nom')]
     private ?string $Nom = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Prenom')]
     private ?string $Prenom = null;
 
     public function getId(): ?int

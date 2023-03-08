@@ -14,16 +14,16 @@ class PackDeCastings
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Libelle')]
     private ?string $Libelle = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, name: 'NombreCastings')]
     private ?int $NombreCastings = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: Types::FLOAT, name: 'Prix')]
     private ?float $Prix = null;
 
-    #[ORM\Column(type: Types::SMALLINT)]
+    #[ORM\Column(type: Types::SMALLINT, name: 'TempsDiffusionOffreEnHeures')]
     private ?int $TempsDiffusionOffreEnHeures = null;
 
     public function getId(): ?int

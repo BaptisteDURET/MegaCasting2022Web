@@ -13,10 +13,10 @@ class PartenaireDiffusion
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Entreprise')]
     private ?string $Entreprise = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'boolean', name: 'Verifie')]
     private ?bool $Verifie = null;
 
     public function getId(): ?int

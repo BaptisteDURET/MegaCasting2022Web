@@ -13,7 +13,7 @@ class DomaineMetier
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50)]
+    #[ORM\Column(length: 50, name: 'Libelle')]
     private ?string $Libelle = null;
 
     public function getId(): ?int

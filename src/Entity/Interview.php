@@ -13,7 +13,7 @@ class Interview
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 200)]
+    #[ORM\Column(length: 200, name: 'Lien')]
     private ?string $Lien = null;
 
     public function getId(): ?int
