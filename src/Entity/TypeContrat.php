@@ -23,6 +23,7 @@ class TypeContrat
     private ?string $libelleLong = null;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'TypeContrat')]
+    #[ORM\JoinTable(name: 'Propose')]
     private Collection $castings;
 
     public function __construct()

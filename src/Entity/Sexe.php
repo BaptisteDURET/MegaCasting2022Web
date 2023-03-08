@@ -23,6 +23,7 @@ class Sexe
     private Collection $artistes;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Sexe')]
+    #[ORM\JoinTable(name: 'Recherche')]
     private Collection $castings;
 
     public function __construct()

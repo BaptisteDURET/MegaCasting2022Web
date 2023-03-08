@@ -25,62 +25,70 @@ class Casting
     private ?string $intitule = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'DateDebutPublication')]
-    private ?\DateTimeInterface $DateDebutPublication = null;
+    private ?\DateTimeInterface $dateDebutPublication = null;
 
     #[ORM\Column(type: Types::SMALLINT, name: 'DureeDiffusion')]
-    private ?int $DureeDiffusion = null;
+    private ?int $dureeDiffusion = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, name: 'DateDebutContrat')]
-    private ?\DateTimeInterface $DateDebutContrat = null;
+    private ?\DateTimeInterface $dateDebutContrat = null;
 
     #[ORM\Column(type: Types::SMALLINT, name: 'NombrePosteDispo')]
-    private ?int $NombrePosteDispo = null;
+    private ?int $nombrePosteDispo = null;
 
     #[ORM\Column(length: 150, name: 'Localisation')]
-    private ?string $Localisation = null;
+    private ?string $localisation = null;
 
     #[ORM\Column(type: Types::TEXT, name: 'Description')]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     #[ORM\Column(type: Types::TEXT, name: 'DescriptionProfilRecherche')]
-    private ?string $DescriptionProfilRecherche = null;
+    private ?string $descriptionProfilRecherche = null;
 
     #[ORM\Column(length: 150, nullable: true, name: 'Email')]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     #[ORM\Column(length: 15, nullable: true, name: 'NumeroTelephone')]
-    private ?string $NumeroTelephone = null;
+    private ?string $numeroTelephone = null;
 
     #[ORM\Column(length: 150, nullable: true, name: 'Fax')]
-    private ?string $Fax = null;
+    private ?string $fax = null;
 
     #[ORM\Column(length: 100, nullable: true, name: 'SiteWeb')]
-    private ?string $SiteWeb = null;
+    private ?string $siteWeb = null;
 
     #[ORM\Column(length: 200, nullable: true, name: 'AdressePostale')]
-    private ?string $AdressePostale = null;
+    private ?string $adressePostale = null;
 
     #[ORM\Column(name: 'Verifie')]
-    private ?bool $Verifie = null;
+    private ?bool $verifie = null;
 
     #[ORM\ManyToOne(inversedBy: 'Casting')]
+    #[ORM\JoinColumn(name: 'Identifiant_Professionnel',nullable: true)]
     private ?Professionnel $professionnel = null;
 
     #[ORM\ManyToMany(targetEntity: Sexe::class, inversedBy: 'castings')]
     #[JoinTable(name: 'Recherche')]
-    private Collection $Sexe;
+    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
+    #[ORM\InverseJoinColumn(name: 'IdentifiantSexe', referencedColumnName: 'Identifiant')]
+    private Collection $sexe;
 
     #[ORM\ManyToMany(targetEntity: TypeContrat::class, inversedBy: 'castings')]
     #[JoinTable(name: 'Propose')]
-    private Collection $TypeContrat;
+    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
+    #[ORM\InverseJoinColumn(name: 'IdentifiantTypeContrat', referencedColumnName: 'Identifiant')]
+    private Collection $typeContrat;
 
     #[ORM\ManyToMany(targetEntity: Metier::class, inversedBy: 'castings')]
+    #[ORM\JoinTable(name: 'Cherche')]
+    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
+    #[ORM\InverseJoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
     private Collection $Metier;
 
     public function __construct()
     {
-        $this->Sexe = new ArrayCollection();
-        $this->TypeContrat = new ArrayCollection();
+        $this->sexe = new ArrayCollection();
+        $this->typeContrat = new ArrayCollection();
         $this->Metier = new ArrayCollection();
     }
 
@@ -115,156 +123,156 @@ class Casting
 
     public function getDateDebutPublication(): ?\DateTimeInterface
     {
-        return $this->DateDebutPublication;
+        return $this->dateDebutPublication;
     }
 
-    public function setDateDebutPublication(\DateTimeInterface $DateDebutPublication): self
+    public function setDateDebutPublication(\DateTimeInterface $dateDebutPublication): self
     {
-        $this->DateDebutPublication = $DateDebutPublication;
+        $this->dateDebutPublication = $dateDebutPublication;
 
         return $this;
     }
 
     public function getDureeDiffusion(): ?int
     {
-        return $this->DureeDiffusion;
+        return $this->dureeDiffusion;
     }
 
-    public function setDureeDiffusion(int $DureeDiffusion): self
+    public function setDureeDiffusion(int $dureeDiffusion): self
     {
-        $this->DureeDiffusion = $DureeDiffusion;
+        $this->dureeDiffusion = $dureeDiffusion;
 
         return $this;
     }
 
     public function getDateDebutContrat(): ?\DateTimeInterface
     {
-        return $this->DateDebutContrat;
+        return $this->dateDebutContrat;
     }
 
-    public function setDateDebutContrat(\DateTimeInterface $DateDebutContrat): self
+    public function setDateDebutContrat(\DateTimeInterface $dateDebutContrat): self
     {
-        $this->DateDebutContrat = $DateDebutContrat;
+        $this->dateDebutContrat = $dateDebutContrat;
 
         return $this;
     }
 
     public function getNombrePosteDispo(): ?int
     {
-        return $this->NombrePosteDispo;
+        return $this->nombrePosteDispo;
     }
 
-    public function setNombrePosteDispo(int $NombrePosteDispo): self
+    public function setNombrePosteDispo(int $nombrePosteDispo): self
     {
-        $this->NombrePosteDispo = $NombrePosteDispo;
+        $this->nombrePosteDispo = $nombrePosteDispo;
 
         return $this;
     }
 
     public function getLocalisation(): ?string
     {
-        return $this->Localisation;
+        return $this->localisation;
     }
 
-    public function setLocalisation(string $Localisation): self
+    public function setLocalisation(string $localisation): self
     {
-        $this->Localisation = $Localisation;
+        $this->localisation = $localisation;
 
         return $this;
     }
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }
 
     public function getDescriptionProfilRecherche(): ?string
     {
-        return $this->DescriptionProfilRecherche;
+        return $this->descriptionProfilRecherche;
     }
 
-    public function setDescriptionProfilRecherche(string $DescriptionProfilRecherche): self
+    public function setDescriptionProfilRecherche(string $descriptionProfilRecherche): self
     {
-        $this->DescriptionProfilRecherche = $DescriptionProfilRecherche;
+        $this->descriptionProfilRecherche = $descriptionProfilRecherche;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(?string $Email): self
+    public function setEmail(?string $email): self
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }
 
     public function getNumeroTelephone(): ?string
     {
-        return $this->NumeroTelephone;
+        return $this->numeroTelephone;
     }
 
-    public function setNumeroTelephone(?string $NumeroTelephone): self
+    public function setNumeroTelephone(?string $numeroTelephone): self
     {
-        $this->NumeroTelephone = $NumeroTelephone;
+        $this->numeroTelephone = $numeroTelephone;
 
         return $this;
     }
 
     public function getFax(): ?string
     {
-        return $this->Fax;
+        return $this->fax;
     }
 
-    public function setFax(?string $Fax): self
+    public function setFax(?string $fax): self
     {
-        $this->Fax = $Fax;
+        $this->fax = $fax;
 
         return $this;
     }
 
     public function getSiteWeb(): ?string
     {
-        return $this->SiteWeb;
+        return $this->siteWeb;
     }
 
-    public function setSiteWeb(?string $SiteWeb): self
+    public function setSiteWeb(?string $siteWeb): self
     {
-        $this->SiteWeb = $SiteWeb;
+        $this->siteWeb = $siteWeb;
 
         return $this;
     }
 
     public function getAdressePostale(): ?string
     {
-        return $this->AdressePostale;
+        return $this->adressePostale;
     }
 
-    public function setAdressePostale(?string $AdressePostale): self
+    public function setAdressePostale(?string $adressePostale): self
     {
-        $this->AdressePostale = $AdressePostale;
+        $this->adressePostale = $adressePostale;
 
         return $this;
     }
 
     public function isVerifie(): ?bool
     {
-        return $this->Verifie;
+        return $this->verifie;
     }
 
-    public function setVerifie(bool $Verifie): self
+    public function setVerifie(bool $verifie): self
     {
-        $this->Verifie = $Verifie;
+        $this->verifie = $verifie;
 
         return $this;
     }
@@ -286,13 +294,13 @@ class Casting
      */
     public function getSexe(): Collection
     {
-        return $this->Sexe;
+        return $this->sexe;
     }
 
     public function addSexe(Sexe $sexe): self
     {
-        if (!$this->Sexe->contains($sexe)) {
-            $this->Sexe->add($sexe);
+        if (!$this->sexe->contains($sexe)) {
+            $this->sexe->add($sexe);
         }
 
         return $this;
@@ -300,7 +308,7 @@ class Casting
 
     public function removeSexe(Sexe $sexe): self
     {
-        $this->Sexe->removeElement($sexe);
+        $this->sexe->removeElement($sexe);
 
         return $this;
     }
@@ -310,13 +318,13 @@ class Casting
      */
     public function getTypeContrat(): Collection
     {
-        return $this->TypeContrat;
+        return $this->typeContrat;
     }
 
     public function addTypeContrat(TypeContrat $typeContrat): self
     {
-        if (!$this->TypeContrat->contains($typeContrat)) {
-            $this->TypeContrat->add($typeContrat);
+        if (!$this->typeContrat->contains($typeContrat)) {
+            $this->typeContrat->add($typeContrat);
         }
 
         return $this;
@@ -324,7 +332,7 @@ class Casting
 
     public function removeTypeContrat(TypeContrat $typeContrat): self
     {
-        $this->TypeContrat->removeElement($typeContrat);
+        $this->typeContrat->removeElement($typeContrat);
 
         return $this;
     }

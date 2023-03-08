@@ -24,7 +24,7 @@ class Artiste
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'artistes')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'Identifiant_Sexe',nullable: false)]
     private ?Sexe $sexe = null;
 
     public function getId(): ?int

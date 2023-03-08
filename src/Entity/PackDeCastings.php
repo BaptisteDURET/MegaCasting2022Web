@@ -32,6 +32,8 @@ class PackDeCastings
 
     #[ORM\ManyToMany(targetEntity: Professionnel::class, inversedBy: 'packDeCastings')]
     #[JoinTable(name: 'Acheter')]
+    #[ORM\JoinColumn(name: 'IdentifiantPack', referencedColumnName: 'Identifiant')]
+    #[ORM\InverseJoinColumn(name: 'IdentifiantProfessionnel', referencedColumnName: 'Identifiant')]
     private Collection $professionnel;
 
     public function __construct()

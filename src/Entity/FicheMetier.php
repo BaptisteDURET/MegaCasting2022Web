@@ -18,6 +18,10 @@ class FicheMetier
     #[ORM\Column(type: Types::TEXT, name: 'Description')]
     private ?string $description = null;
 
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'Identifiant_Metier', nullable: false)]
+    private ?Metier $Metier = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -31,6 +35,18 @@ class FicheMetier
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getMetier(): ?Metier
+    {
+        return $this->Metier;
+    }
+
+    public function setMetier(Metier $Metier): self
+    {
+        $this->Metier = $Metier;
 
         return $this;
     }

@@ -20,14 +20,16 @@ class Metier
     private ?string $libelle = null;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Metier')]
+    #[ORM\JoinTable(name: 'Cherche')]
     private Collection $castings;
 
     #[ORM\ManyToOne(inversedBy: 'metiers')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', nullable: false)]
     private ?DomaineMetier $domaineMetier = null;
 
-    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?FicheMetier $ficheMetier = null;
+    #[ORM\ManyToOne(inversedBy: 'metiers')]
+    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier')]
+    private ?DomaineMetier $DomaineMetier = null;
 
     public function __construct()
     {
@@ -86,18 +88,6 @@ class Metier
     public function setDomaineMetier(?DomaineMetier $domaineMetier): self
     {
         $this->domaineMetier = $domaineMetier;
-
-        return $this;
-    }
-
-    public function getFicheMetier(): ?FicheMetier
-    {
-        return $this->ficheMetier;
-    }
-
-    public function setFicheMetier(?FicheMetier $ficheMetier): self
-    {
-        $this->ficheMetier = $ficheMetier;
 
         return $this;
     }
