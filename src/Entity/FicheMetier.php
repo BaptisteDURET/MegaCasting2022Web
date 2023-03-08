@@ -11,7 +11,7 @@ class FicheMetier
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT)]
