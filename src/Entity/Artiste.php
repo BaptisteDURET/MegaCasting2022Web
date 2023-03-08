@@ -6,6 +6,7 @@ use App\Repository\ArtisteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtisteRepository::class)]
+#[ORM\Table(name: 'Artiste')]
 class Artiste
 {
     #[ORM\Id]
@@ -14,67 +15,67 @@ class Artiste
     private ?int $id = null;
 
     #[ORM\Column(length: 200, name: 'CV')]
-    private ?string $CV = null;
+    private ?string $cv = null;
 
     #[ORM\Column(length: 50, name: 'Nom')]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 50, name: 'Prenom')]
-    private ?string $Prenom = null;
+    private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'artistes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Sexe $Sexe = null;
+    private ?Sexe $sexe = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getCV(): ?string
+    public function getCv(): ?string
     {
-        return $this->CV;
+        return $this->cv;
     }
 
-    public function setCV(string $CV): self
+    public function setCv(string $cv): self
     {
-        $this->CV = $CV;
+        $this->cv = $cv;
 
         return $this;
     }
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getPrenom(): ?string
     {
-        return $this->Prenom;
+        return $this->prenom;
     }
 
-    public function setPrenom(string $Prenom): self
+    public function setPrenom(string $prenom): self
     {
-        $this->Prenom = $Prenom;
+        $this->prenom = $prenom;
 
         return $this;
     }
 
     public function getSexe(): ?Sexe
     {
-        return $this->Sexe;
+        return $this->sexe;
     }
 
-    public function setSexe(?Sexe $Sexe): self
+    public function setSexe(?Sexe $sexe): self
     {
-        $this->Sexe = $Sexe;
+        $this->sexe = $sexe;
 
         return $this;
     }

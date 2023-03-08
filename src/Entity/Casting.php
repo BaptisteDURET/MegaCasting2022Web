@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: CastingRepository::class)]
+#[ORM\Table(name: 'Casting')]
 class Casting
 {
     #[ORM\Id]
@@ -18,10 +19,10 @@ class Casting
     private ?int $id = null;
 
     #[ORM\Column(length: 60, name: 'Reference')]
-    private ?string $Reference = null;
+    private ?string $reference = null;
 
     #[ORM\Column(length: 150, name: 'Intitule')]
-    private ?string $Intitule = null;
+    private ?string $intitule = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE, name: 'DateDebutPublication')]
     private ?\DateTimeInterface $DateDebutPublication = null;
@@ -90,24 +91,24 @@ class Casting
 
     public function getReference(): ?string
     {
-        return $this->Reference;
+        return $this->reference;
     }
 
-    public function setReference(string $Reference): self
+    public function setReference(string $reference): self
     {
-        $this->Reference = $Reference;
+        $this->reference = $reference;
 
         return $this;
     }
 
     public function getIntitule(): ?string
     {
-        return $this->Intitule;
+        return $this->intitule;
     }
 
-    public function setIntitule(string $Intitule): self
+    public function setIntitule(string $intitule): self
     {
-        $this->Intitule = $Intitule;
+        $this->intitule = $intitule;
 
         return $this;
     }

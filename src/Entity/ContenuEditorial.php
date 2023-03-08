@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 #[ORM\Entity(repositoryClass: ContenuEditorialRepository::class)]
+#[ORM\Table(name: 'ContenuEditorial')]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'discr', type: 'string')]
 #[DiscriminatorMap(['FicheMetier' => FicheMetier::class, 'Conseil' => Conseil::class, 'Interview' => Interview::class])]
@@ -20,7 +21,7 @@ class ContenuEditorial
     private ?int $id = null;
 
     #[ORM\Column(length: 50, name: 'Titre')]
-    private ?string $Titre = null;
+    private ?string $titre = null;
 
     public function getId(): ?int
     {
@@ -29,12 +30,12 @@ class ContenuEditorial
 
     public function getTitre(): ?string
     {
-        return $this->Titre;
+        return $this->titre;
     }
 
-    public function setTitre(string $Titre): self
+    public function setTitre(string $titre): self
     {
-        $this->Titre = $Titre;
+        $this->titre = $titre;
 
         return $this;
     }

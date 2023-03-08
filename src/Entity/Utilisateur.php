@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
+#[ORM\Table(name: 'Utilisateur')]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'discr', type: 'string')]
 #[DiscriminatorMap(['PartenaireDiffusion' => PartenaireDiffusion::class, 'Professionnel' => Professionnel::class, 'Artiste' => Artiste::class])]
@@ -20,16 +21,16 @@ class Utilisateur
     private ?int $id = null;
 
     #[ORM\Column(length: 50, name: 'Nom')]
-    private ?string $Nom = null;
+    private ?string $nom = null;
 
     #[ORM\Column(length: 80, name: 'MotDePasse')]
-    private ?string $MotDePasse = null;
+    private ?string $motDePasse = null;
 
     #[ORM\Column(length: 15, nullable: true, name: 'NumeroTelephone')]
-    private ?string $NumeroTelephone = null;
+    private ?string $numeroTelephone = null;
 
     #[ORM\Column(length: 150, nullable: true, name: 'Email')]
-    private ?string $Email = null;
+    private ?string $email = null;
 
     public function getId(): ?int
     {
@@ -38,48 +39,48 @@ class Utilisateur
 
     public function getNom(): ?string
     {
-        return $this->Nom;
+        return $this->nom;
     }
 
-    public function setNom(string $Nom): self
+    public function setNom(string $nom): self
     {
-        $this->Nom = $Nom;
+        $this->nom = $nom;
 
         return $this;
     }
 
     public function getMotDePasse(): ?string
     {
-        return $this->MotDePasse;
+        return $this->motDePasse;
     }
 
-    public function setMotDePasse(string $MotDePasse): self
+    public function setMotDePasse(string $motDePasse): self
     {
-        $this->MotDePasse = $MotDePasse;
+        $this->motDePasse = $motDePasse;
 
         return $this;
     }
 
     public function getNumeroTelephone(): ?string
     {
-        return $this->NumeroTelephone;
+        return $this->numeroTelephone;
     }
 
-    public function setNumeroTelephone(?string $NumeroTelephone): self
+    public function setNumeroTelephone(?string $numeroTelephone): self
     {
-        $this->NumeroTelephone = $NumeroTelephone;
+        $this->numeroTelephone = $numeroTelephone;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->Email;
+        return $this->email;
     }
 
-    public function setEmail(?string $Email): self
+    public function setEmail(?string $email): self
     {
-        $this->Email = $Email;
+        $this->email = $email;
 
         return $this;
     }

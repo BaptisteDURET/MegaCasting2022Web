@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: PackDeCastingsRepository::class)]
+#[ORM\Table(name: 'PackDeCastings')]
 class PackDeCastings
 {
     #[ORM\Id]
@@ -18,24 +19,24 @@ class PackDeCastings
     private ?int $id = null;
 
     #[ORM\Column(length: 50, name: 'Libelle')]
-    private ?string $Libelle = null;
+    private ?string $libelle = null;
 
     #[ORM\Column(type: Types::SMALLINT, name: 'NombreCastings')]
-    private ?int $NombreCastings = null;
+    private ?int $nombreCastings = null;
 
     #[ORM\Column(type: Types::FLOAT, name: 'Prix')]
-    private ?float $Prix = null;
+    private ?float $prix = null;
 
     #[ORM\Column(type: Types::SMALLINT, name: 'TempsDiffusionOffreEnHeures')]
-    private ?int $TempsDiffusionOffreEnHeures = null;
+    private ?int $tempsDiffusionOffreEnHeures = null;
 
     #[ORM\ManyToMany(targetEntity: Professionnel::class, inversedBy: 'packDeCastings')]
     #[JoinTable(name: 'Acheter')]
-    private Collection $Professionnel;
+    private Collection $professionnel;
 
     public function __construct()
     {
-        $this->Professionnel = new ArrayCollection();
+        $this->professionnel = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -45,48 +46,48 @@ class PackDeCastings
 
     public function getLibelle(): ?string
     {
-        return $this->Libelle;
+        return $this->libelle;
     }
 
-    public function setLibelle(string $Libelle): self
+    public function setLibelle(string $libelle): self
     {
-        $this->Libelle = $Libelle;
+        $this->libelle = $libelle;
 
         return $this;
     }
 
     public function getNombreCastings(): ?int
     {
-        return $this->NombreCastings;
+        return $this->nombreCastings;
     }
 
-    public function setNombreCastings(int $NombreCastings): self
+    public function setNombreCastings(int $nombreCastings): self
     {
-        $this->NombreCastings = $NombreCastings;
+        $this->nombreCastings = $nombreCastings;
 
         return $this;
     }
 
     public function getPrix(): ?float
     {
-        return $this->Prix;
+        return $this->prix;
     }
 
-    public function setPrix(float $Prix): self
+    public function setPrix(float $prix): self
     {
-        $this->Prix = $Prix;
+        $this->prix = $prix;
 
         return $this;
     }
 
     public function getTempsDiffusionOffreEnHeures(): ?int
     {
-        return $this->TempsDiffusionOffreEnHeures;
+        return $this->tempsDiffusionOffreEnHeures;
     }
 
-    public function setTempsDiffusionOffreEnHeures(int $TempsDiffusionOffreEnHeures): self
+    public function setTempsDiffusionOffreEnHeures(int $tempsDiffusionOffreEnHeures): self
     {
-        $this->TempsDiffusionOffreEnHeures = $TempsDiffusionOffreEnHeures;
+        $this->tempsDiffusionOffreEnHeures = $tempsDiffusionOffreEnHeures;
 
         return $this;
     }
@@ -96,13 +97,13 @@ class PackDeCastings
      */
     public function getProfessionnel(): Collection
     {
-        return $this->Professionnel;
+        return $this->professionnel;
     }
 
     public function addProfessionnel(Professionnel $professionnel): self
     {
-        if (!$this->Professionnel->contains($professionnel)) {
-            $this->Professionnel->add($professionnel);
+        if (!$this->professionnel->contains($professionnel)) {
+            $this->professionnel->add($professionnel);
         }
 
         return $this;
@@ -110,7 +111,7 @@ class PackDeCastings
 
     public function removeProfessionnel(Professionnel $professionnel): self
     {
-        $this->Professionnel->removeElement($professionnel);
+        $this->professionnel->removeElement($professionnel);
 
         return $this;
     }

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: MetierRepository::class)]
+#[ORM\Table(name: 'Metier')]
 class Metier
 {
     #[ORM\Id]
@@ -16,17 +17,17 @@ class Metier
     private ?int $id = null;
 
     #[ORM\Column(length: 50, name: 'Libelle')]
-    private ?string $Libelle = null;
+    private ?string $libelle = null;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Metier')]
     private Collection $castings;
 
     #[ORM\ManyToOne(inversedBy: 'metiers')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?DomaineMetier $DomaineMetier = null;
+    private ?DomaineMetier $domaineMetier = null;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?FicheMetier $FicheMetier = null;
+    private ?FicheMetier $ficheMetier = null;
 
     public function __construct()
     {
@@ -40,12 +41,12 @@ class Metier
 
     public function getLibelle(): ?string
     {
-        return $this->Libelle;
+        return $this->libelle;
     }
 
-    public function setLibelle(string $Libelle): self
+    public function setLibelle(string $libelle): self
     {
-        $this->Libelle = $Libelle;
+        $this->libelle = $libelle;
 
         return $this;
     }
@@ -79,24 +80,24 @@ class Metier
 
     public function getDomaineMetier(): ?DomaineMetier
     {
-        return $this->DomaineMetier;
+        return $this->domaineMetier;
     }
 
-    public function setDomaineMetier(?DomaineMetier $DomaineMetier): self
+    public function setDomaineMetier(?DomaineMetier $domaineMetier): self
     {
-        $this->DomaineMetier = $DomaineMetier;
+        $this->domaineMetier = $domaineMetier;
 
         return $this;
     }
 
     public function getFicheMetier(): ?FicheMetier
     {
-        return $this->FicheMetier;
+        return $this->ficheMetier;
     }
 
-    public function setFicheMetier(?FicheMetier $FicheMetier): self
+    public function setFicheMetier(?FicheMetier $ficheMetier): self
     {
-        $this->FicheMetier = $FicheMetier;
+        $this->ficheMetier = $ficheMetier;
 
         return $this;
     }

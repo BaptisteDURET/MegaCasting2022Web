@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: TypeContratRepository::class)]
+#[ORM\Table(name: 'TypeContrat')]
 class TypeContrat
 {
     #[ORM\Id]
@@ -16,10 +17,10 @@ class TypeContrat
     private ?int $id = null;
 
     #[ORM\Column(length: 10, name: 'LibelleCourt')]
-    private ?string $LibelleCourt = null;
+    private ?string $libelleCourt = null;
 
     #[ORM\Column(length: 50, name: 'LibelleLong')]
-    private ?string $LibelleLong = null;
+    private ?string $libelleLong = null;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'TypeContrat')]
     private Collection $castings;
@@ -36,24 +37,24 @@ class TypeContrat
 
     public function getLibelleCourt(): ?string
     {
-        return $this->LibelleCourt;
+        return $this->libelleCourt;
     }
 
-    public function setLibelleCourt(string $LibelleCourt): self
+    public function setLibelleCourt(string $libelleCourt): self
     {
-        $this->LibelleCourt = $LibelleCourt;
+        $this->libelleCourt = $libelleCourt;
 
         return $this;
     }
 
     public function getLibelleLong(): ?string
     {
-        return $this->LibelleLong;
+        return $this->libelleLong;
     }
 
-    public function setLibelleLong(string $LibelleLong): self
+    public function setLibelleLong(string $libelleLong): self
     {
-        $this->LibelleLong = $LibelleLong;
+        $this->libelleLong = $libelleLong;
 
         return $this;
     }

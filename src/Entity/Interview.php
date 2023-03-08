@@ -6,6 +6,7 @@ use App\Repository\InterviewRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: InterviewRepository::class)]
+#[ORM\Table(name: 'Interview')]
 class Interview
 {
     #[ORM\Id]
@@ -14,7 +15,7 @@ class Interview
     private ?int $id = null;
 
     #[ORM\Column(length: 200, name: 'Lien')]
-    private ?string $Lien = null;
+    private ?string $lien = null;
 
     public function getId(): ?int
     {
@@ -23,12 +24,12 @@ class Interview
 
     public function getLien(): ?string
     {
-        return $this->Lien;
+        return $this->lien;
     }
 
-    public function setLien(string $Lien): self
+    public function setLien(string $lien): self
     {
-        $this->Lien = $Lien;
+        $this->lien = $lien;
 
         return $this;
     }

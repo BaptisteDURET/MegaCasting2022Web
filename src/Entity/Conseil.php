@@ -7,6 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ConseilRepository::class)]
+#[ORM\Table(name: 'Conseil')]
 class Conseil
 {
     #[ORM\Id]
@@ -15,7 +16,7 @@ class Conseil
     private ?int $id = null;
 
     #[ORM\Column(type: Types::TEXT, name: 'Description')]
-    private ?string $Description = null;
+    private ?string $description = null;
 
     public function getId(): ?int
     {
@@ -24,12 +25,12 @@ class Conseil
 
     public function getDescription(): ?string
     {
-        return $this->Description;
+        return $this->description;
     }
 
-    public function setDescription(string $Description): self
+    public function setDescription(string $description): self
     {
-        $this->Description = $Description;
+        $this->description = $description;
 
         return $this;
     }

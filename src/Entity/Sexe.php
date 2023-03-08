@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: SexeRepository::class)]
+#[ORM\Table(name: 'Sexe')]
 class Sexe
 {
     #[ORM\Id]
@@ -16,7 +17,7 @@ class Sexe
     private ?int $id = null;
 
     #[ORM\Column(length: 50, name: 'Libelle')]
-    private ?string $Libelle = null;
+    private ?string $libelle = null;
 
     #[ORM\OneToMany(mappedBy: 'Sexe', targetEntity: Artiste::class)]
     private Collection $artistes;
@@ -37,12 +38,12 @@ class Sexe
 
     public function getLibelle(): ?string
     {
-        return $this->Libelle;
+        return $this->libelle;
     }
 
-    public function setLibelle(string $Libelle): self
+    public function setLibelle(string $libelle): self
     {
-        $this->Libelle = $Libelle;
+        $this->libelle = $libelle;
 
         return $this;
     }
