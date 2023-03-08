@@ -4,8 +4,14 @@ namespace App\Entity;
 
 use App\Repository\ContenuEditorialRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\DiscriminatorColumn;
+use Doctrine\ORM\Mapping\DiscriminatorMap;
+use Doctrine\ORM\Mapping\InheritanceType;
 
 #[ORM\Entity(repositoryClass: ContenuEditorialRepository::class)]
+#[InheritanceType('JOINED')]
+#[DiscriminatorColumn(name: 'discr', type: 'string')]
+#[DiscriminatorMap(['FicheMetier' => FicheMetier::class, 'Conseil' => Conseil::class, 'Interview' => Interview::class])]
 class ContenuEditorial
 {
     #[ORM\Id]
