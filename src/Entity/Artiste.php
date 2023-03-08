@@ -22,6 +22,10 @@ class Artiste
     #[ORM\Column(length: 50, name: 'Prenom')]
     private ?string $Prenom = null;
 
+    #[ORM\ManyToOne(inversedBy: 'artistes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Sexe $Sexe = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +63,18 @@ class Artiste
     public function setPrenom(string $Prenom): self
     {
         $this->Prenom = $Prenom;
+
+        return $this;
+    }
+
+    public function getSexe(): ?Sexe
+    {
+        return $this->Sexe;
+    }
+
+    public function setSexe(?Sexe $Sexe): self
+    {
+        $this->Sexe = $Sexe;
 
         return $this;
     }

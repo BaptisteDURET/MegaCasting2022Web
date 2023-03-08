@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\CastingRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: CastingRepository::class)]
 class Casting
@@ -58,6 +61,27 @@ class Casting
 
     #[ORM\Column(name: 'Verifie')]
     private ?bool $Verifie = null;
+
+    #[ORM\ManyToOne(inversedBy: 'Casting')]
+    private ?Professionnel $professionnel = null;
+
+    #[ORM\ManyToMany(targetEntity: Sexe::class, inversedBy: 'castings')]
+    #[JoinTable(name: 'Recherche')]
+    private Collection $Sexe;
+
+    #[ORM\ManyToMany(targetEntity: TypeContrat::class, inversedBy: 'castings')]
+    #[JoinTable(name: 'Propose')]
+    private Collection $TypeContrat;
+
+    #[ORM\ManyToMany(targetEntity: Metier::class, inversedBy: 'castings')]
+    private Collection $Metier;
+
+    public function __construct()
+    {
+        $this->Sexe = new ArrayCollection();
+        $this->TypeContrat = new ArrayCollection();
+        $this->Metier = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -240,6 +264,90 @@ class Casting
     public function setVerifie(bool $Verifie): self
     {
         $this->Verifie = $Verifie;
+
+        return $this;
+    }
+
+    public function getProfessionnel(): ?Professionnel
+    {
+        return $this->professionnel;
+    }
+
+    public function setProfessionnel(?Professionnel $professionnel): self
+    {
+        $this->professionnel = $professionnel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sexe>
+     */
+    public function getSexe(): Collection
+    {
+        return $this->Sexe;
+    }
+
+    public function addSexe(Sexe $sexe): self
+    {
+        if (!$this->Sexe->contains($sexe)) {
+            $this->Sexe->add($sexe);
+        }
+
+        return $this;
+    }
+
+    public function removeSexe(Sexe $sexe): self
+    {
+        $this->Sexe->removeElement($sexe);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, TypeContrat>
+     */
+    public function getTypeContrat(): Collection
+    {
+        return $this->TypeContrat;
+    }
+
+    public function addTypeContrat(TypeContrat $typeContrat): self
+    {
+        if (!$this->TypeContrat->contains($typeContrat)) {
+            $this->TypeContrat->add($typeContrat);
+        }
+
+        return $this;
+    }
+
+    public function removeTypeContrat(TypeContrat $typeContrat): self
+    {
+        $this->TypeContrat->removeElement($typeContrat);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Metier>
+     */
+    public function getMetier(): Collection
+    {
+        return $this->Metier;
+    }
+
+    public function addMetier(Metier $metier): self
+    {
+        if (!$this->Metier->contains($metier)) {
+            $this->Metier->add($metier);
+        }
+
+        return $this;
+    }
+
+    public function removeMetier(Metier $metier): self
+    {
+        $this->Metier->removeElement($metier);
 
         return $this;
     }

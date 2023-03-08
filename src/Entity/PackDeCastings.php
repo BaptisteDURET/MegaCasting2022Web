@@ -3,8 +3,11 @@
 namespace App\Entity;
 
 use App\Repository\PackDeCastingsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: PackDeCastingsRepository::class)]
 class PackDeCastings
@@ -25,6 +28,15 @@ class PackDeCastings
 
     #[ORM\Column(type: Types::SMALLINT, name: 'TempsDiffusionOffreEnHeures')]
     private ?int $TempsDiffusionOffreEnHeures = null;
+
+    #[ORM\ManyToMany(targetEntity: Professionnel::class, inversedBy: 'packDeCastings')]
+    #[JoinTable(name: 'Acheter')]
+    private Collection $Professionnel;
+
+    public function __construct()
+    {
+        $this->Professionnel = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +87,30 @@ class PackDeCastings
     public function setTempsDiffusionOffreEnHeures(int $TempsDiffusionOffreEnHeures): self
     {
         $this->TempsDiffusionOffreEnHeures = $TempsDiffusionOffreEnHeures;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Professionnel>
+     */
+    public function getProfessionnel(): Collection
+    {
+        return $this->Professionnel;
+    }
+
+    public function addProfessionnel(Professionnel $professionnel): self
+    {
+        if (!$this->Professionnel->contains($professionnel)) {
+            $this->Professionnel->add($professionnel);
+        }
+
+        return $this;
+    }
+
+    public function removeProfessionnel(Professionnel $professionnel): self
+    {
+        $this->Professionnel->removeElement($professionnel);
 
         return $this;
     }
