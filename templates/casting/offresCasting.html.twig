@@ -1,23 +1,29 @@
 {% extends '/base.html.twig' %}
 {% block body %}
-    <table>
-        <thead>
-            <tr>
-                <th>Identifiant</th>
-                <th>Intitulé</th>
-                <th>description</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% if castings %}
-            {% for casting in castings %}
+    {{ block('navbar', "/blocks/navbar.html.twig") }}
+    <h1>Liste des castings</h1>
+    {% if castings %}
+        <table>
+            <thead>
                 <tr>
-                    <td>{{ casting.id }}</td>
-                    <td>{{ casting.Intitule }}</td>
-                    <td>{{ casting.description }}</td>
+                    <th>Identifiant</th>
+                    <th>Intitulé</th>
+                    <th>description</th>
                 </tr>
-            {% endfor %}
-        {% endif %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+
+                {% for casting in castings %}
+                    <tr>
+                        <td>{{ casting.id }}</td>
+                        <td>{{ casting.Intitule }}</td>
+                        <td>{{ casting.description }}</td>
+                    </tr>
+                {% endfor %}
+
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun casting n'a été trouvé.</p>
+    {% endif %}
 {% endblock body %}

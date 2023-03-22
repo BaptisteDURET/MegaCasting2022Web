@@ -2,12 +2,12 @@
     <section id="navbar-top">
         <nav>
             <ul>
-                <li><a href="{{ path('home') }}"><img src="public/build/images/megaproduction_logo.png" alt="Logo de MegaProduction"></a></li>
+                <li><a href="{{ path('home') }}"><img src={{ asset('build/images/megaproduction_logo.png') }} alt="Logo de MegaProduction"></a></li>
                 <li><a href="{{ path('castings') }}">Castings</a></li>
                 <li>
                     <ul class="authentification">
                         <li><a href="{{ path('register') }}" class="register">Créer un compte</a></li>
-                        <li><a href="#{# {{ path('login') }} #}" class="login">Se connecter</a></li>
+                        <li><a href="{{ path('login') }}" class="login">Se connecter</a></li>
                     </ul>
             </ul>
         </nav>

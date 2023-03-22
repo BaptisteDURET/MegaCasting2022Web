@@ -16,7 +16,7 @@ class CastingController extends AbstractController
 
         $castings = $entityManager->getRepository(Casting::class)->findAll();
         if ($castings == null) {
-            return new Response("Aucun casting trouvé");
+            return $this->render('casting/offresCasting.html.twig', array('castings' => null, 'route' => 'Aucun casting'));
         }
         return $this->render('casting/offresCasting.html.twig', array('castings' => $castings, 'route' => 'Tous nos castings'));
     }
@@ -27,7 +27,7 @@ class CastingController extends AbstractController
 
         $casting = $entityManager->getRepository(Casting::class)->find(id: $id);
         if ($casting == null) {
-            return new Response("Casting introuvable");
+            return $this->render('casting/offreCasting.html.twig', array('casting' => null, 'route' => 'Aucun casting'));
         }
         $idCast = $casting->getId();
         return $this->render('casting/offreCasting.html.twig', array('casting' => $casting, 'route' => 'Casting n°' . $idCast));
