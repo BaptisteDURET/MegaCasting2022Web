@@ -7,30 +7,40 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\DiscriminatorColumn;
 use Doctrine\ORM\Mapping\DiscriminatorMap;
 use Doctrine\ORM\Mapping\InheritanceType;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\Table(name: 'Utilisateur')]
 #[InheritanceType('JOINED')]
 #[DiscriminatorColumn(name: 'discr', type: 'string')]
 #[DiscriminatorMap(['PartenaireDiffusion' => PartenaireDiffusion::class, 'Professionnel' => Professionnel::class, 'Artiste' => Artiste::class])]
-class Utilisateur
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Nom')]
+    #[ORM\Column(name: 'Nom', length: 50)]
     private ?string $nom = null;
 
-    #[ORM\Column(length: 80, name: 'MotDePasse')]
+    #[ORM\Column(name: 'MotDePasse', length: 80)]
     private ?string $motDePasse = null;
 
-    #[ORM\Column(length: 15, nullable: true, name: 'NumeroTelephone')]
+    #[ORM\Column(name: 'NumeroTelephone', length: 15, nullable: true)]
     private ?string $numeroTelephone = null;
 
-    #[ORM\Column(length: 150, nullable: true, name: 'Email')]
+    #[ORM\Column(name: 'Email', length: 150, nullable: true)]
     private ?string $email = null;
+
+    #[ORM\Column(name: 'Roles', type: "json")]
+    private ?array $roles = [];
+
+    private ?string $discr = null;
+
 
     public function getId(): ?int
     {
@@ -49,18 +59,32 @@ class Utilisateur
         return $this;
     }
 
-    public function getMotDePasse(): ?string
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): ?string
     {
         return $this->motDePasse;
     }
 
-    public function setMotDePasse(string $motDePasse): self
+    public function setPassword(string $motDePasse): self
     {
         $this->motDePasse = $motDePasse;
 
         return $this;
     }
 
+    public function  getDiscr(): ?string
+    {
+        return $this->discr;
+    }
+
+    public function setDiscr(string $discr): self
+    {
+        $this->discr = $discr;
+
+        return $this;
+    }
     public function getNumeroTelephone(): ?string
     {
         return $this->numeroTelephone;
@@ -83,5 +107,43 @@ class Utilisateur
         $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }

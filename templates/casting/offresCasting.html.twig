@@ -1,0 +1,23 @@
+{% extends '/base.html.twig' %}
+{% block body %}
+    <table>
+        <thead>
+            <tr>
+                <th>Identifiant</th>
+                <th>Intitulé</th>
+                <th>description</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if castings %}
+            {% for casting in castings %}
+                <tr>
+                    <td>{{ casting.id }}</td>
+                    <td>{{ casting.Intitule }}</td>
+                    <td>{{ casting.description }}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
+    </table>
+{% endblock body %}

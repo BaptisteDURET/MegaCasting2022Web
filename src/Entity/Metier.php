@@ -16,15 +16,15 @@ class Metier
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Libelle')]
+    #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
     #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Metier')]
     #[ORM\JoinTable(name: 'Cherche')]
     private Collection $castings;
 
-    #[ORM\ManyToOne(inversedBy: 'metiers', targetEntity: DomaineMetier::class)]
-    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', nullable: false, referencedColumnName: 'Identifiant')]
+    #[ORM\ManyToOne(targetEntity: DomaineMetier::class, inversedBy: 'metiers')]
+    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', referencedColumnName: 'Identifiant', nullable: false)]
     private ?DomaineMetier $domaineMetier = null;
 
     public function __construct()
@@ -86,5 +86,9 @@ class Metier
         $this->domaineMetier = $domaineMetier;
 
         return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->libelle;
     }
 }

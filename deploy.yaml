@@ -1,0 +1,17 @@
+import: 
+  - recipe/symfony.php
+
+config:
+  repository: 'git@github.com:BaptisteDURET/MegaCasting2022Web.git'
+
+hosts:
+  :
+    remote_user: deployer
+    deploy_path: '~/app'
+
+tasks:
+  build:
+    - run: uptime  
+
+after:
+  deploy:failed: deploy:unlock
