@@ -39,6 +39,19 @@ class CastingRepository extends ServiceEntityRepository
         }
     }
 
+    public function findByIntitule(string $libelle) : array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.intitule LIKE :libelle')
+            ->orWhere('c.description LIKE :libelle')
+            ->orWhere('c.reference = :libelle')
+            ->setParameter('libelle', '%'.$libelle.'%')
+            ->getQuery()
+            ->getResult();
+        return $query;
+    }
+
 //    /**
 //     * @return Casting[] Returns an array of Casting objects
 //     */
