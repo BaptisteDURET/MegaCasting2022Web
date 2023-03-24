@@ -26,7 +26,7 @@ set('branch', 'main');
 
 // Hosts
 host($_ENV['DEPLOYER_REPO_HOST'])
-    ->setRemoteUser('user')
+    ->setRemoteUser('adminlocal')
     ->setHostname($_ENV['DEPLOYER_REPO_HOSTNAME'])
     ->setPort($_ENV['DEPLOYER_REPO_PORT'])
     ->set('deploy_path', '/var/www/symfony');
@@ -39,9 +39,6 @@ set('repository', $_ENV['DEPLOYER_REPO_URL']);
 // [Optional] Allocate tty for git clone. Default value is false.
 //set('git_tty', true);
 
-// Shared files/dirs between deploys
-add('shared_files', []);
-add('shared_dirs', []);
 
 // Writable dirs by web server
 //add('writable_dirs', []);
@@ -77,11 +74,16 @@ before('deploy:symlink', 'database:migrate');
 
 
 task('deploy', [
-    'deploy:prepare',
+    'deploy:info',
+    'deploy:setup',
+    'deploy:lock',
+    'deploy:release',
+    'deploy:update_code',
+    'deploy:writable',
     'deploy:vendors',
     'deploy:cache:clear',
     'deploy:publish'
-])->desc('DÃ©ploiement de Megacasting');
+])->desc('Déploiement de Megacasting');
 
 // [Optional] if deploy fails automatically unlock.
 //after('deploy:failed', 'deploy:unlock');

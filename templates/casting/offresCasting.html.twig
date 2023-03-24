@@ -1,28 +1,29 @@
 {% extends '/base.html.twig' %}
 {% block body %}
     <h1>Liste des castings</h1>
-    {% if castings %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Identifiant</th>
-                    <th>Intitulé</th>
-                    <th>description</th>
-                </tr>
-            </thead>
-            <tbody>
-
+    <form method="GET" class="search">
+        <input type="text" name="intitule" value={{ value ? value : '' }}>
+        <input type="submit" value="Rechercher">
+    </form>
+    <section id="container-castings">
+        {% if castings and not result %}
                 {% for casting in castings %}
-                    <tr>
-                        <td>{{ casting.id }}</td>
-                        <td>{{ casting.Intitule }}</td>
-                        <td>{{ casting.description }}</td>
-                    </tr>
+                    <div class="casting">
+                        <h2>{{ casting.Intitule }}</h2>
+                        <p>{{ casting.description }}</p>
+                        <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
+                    </div>
                 {% endfor %}
-
-            </tbody>
-        </table>
-    {% else %}
-        <p>Aucun casting n'a été trouvé.</p>
-    {% endif %}
+        {% elseif result %}
+            {% for casting in result %}
+                <div class="casting">
+                    <h2>{{ casting.Intitule }}</h2>
+                    <p>{{ casting.description }}</p>
+                    <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Aucun casting n'a été trouvé.</p>
+        {% endif %}
+    </section>
 {% endblock body %}

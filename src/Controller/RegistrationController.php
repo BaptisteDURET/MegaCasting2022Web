@@ -37,11 +37,12 @@ class RegistrationController extends AbstractController
             $entityManager->flush();
             // do anything else you need here, like send an email
 
-            return $this->redirectToRoute('register');
+            return $this->redirectToRoute('login', ['controller_name' => 'Connexion']);
         }
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'controller_name' => 'Créer un compte',
         ]);
     }
 }

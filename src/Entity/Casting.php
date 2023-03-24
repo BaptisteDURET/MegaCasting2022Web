@@ -85,6 +85,20 @@ class Casting
     #[ORM\InverseJoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
     private Collection $metier;
 
+    public function findByIntitule(string $libelle) : array
+    {
+        $query = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.intitule LIKE :libelle')
+            ->orWhere('c.description LIKE :libelle')
+            ->orWhere('c.reference = :libelle')
+            ->setParameter('libelle', '%'.$libelle.'%')
+            ->getQuery()
+            ->getResult()
+            ->getArrayResult();
+        return $query;
+    }
+
     public function __construct()
     {
         $this->sexe = new ArrayCollection();
