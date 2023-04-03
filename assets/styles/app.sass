@@ -1,3 +1,5 @@
+@import "variables"
+
 // NavBar
 body
     section#navbar-top
@@ -16,6 +18,7 @@ body
                     a
                         color: white
                         text-decoration: none
+                        max-height: 100px
                         img
                             width: 100px
                             height: 100px
@@ -28,32 +31,86 @@ body
                         min-height: fit-content
                         align-items: center
                         width: fit-content
-                        li
+                        li:not(.profil)
                             min-height: 40px
                             display: flex
                             align-items: center
-                            a
+                            a:not(ul#list-profil *)
                                 color: white
                                 text-decoration: none
                                 padding: 8px
-                                background-color: #749F82
+                                background-color: $secondary
                                 border-radius: 10px
                                 &:hover
-                                    color: #CFFF8D
-                                    padding: 10px
+                                    color: $quaternary
+                                    padding: 12px 10px
                                     transition: 0.2s
                             &:first-child
                                 margin-bottom: 5px
+                        li.profil
+                            position: relative
+                            margin: 0
+                            transition: 0.2s
+                            max-height: 80px
+                            min-width: 80px
+                            &:hover
+                                ul#list-profil
+                                    display: flex
+                            img.profilPicture
+                                width: 80px
+                                height: 80px
+                                object-fit: cover
+                                border-radius: 50%
+                            ul#list-profil
+                                display: none
+                                position: absolute
+                                flex-direction: column
+                                justify-content: space-between
+                                list-style: none
+                                min-height: fit-content
+                                align-items: start
+                                top: 100%
+                                background-color: $secondary
+                                padding: 5px
+                                min-width: max-content
+                                left: -50%
+                                li:not(li:last-child)
+                                    border-bottom: 1px solid $main
+                                    width: 100%
+                                li
+                                    a
+                                        height: fit-content
+// NavBar End
+
+
 body
     margin: 0
     padding: 0
     background-color: white
+    img.profilPicture
+        width: 100px
+        height: 100px
+        object-fit: cover
+        border-radius: 50%
     section#container-castings
         margin: 10px auto 0
         width: fit-content
+        display: grid
+        grid-template-columns: repeat(1, 1fr)
+        grid-template-rows: repeat(1, 1fr)
+        @media(min-width: $tablet)
+            grid-template-columns: repeat(2, 1fr)
+            grid-template-rows: repeat(2, 1fr)
+        @media(min-width: $tabletLG)
+            grid-template-columns: repeat(3, 1fr)
+            grid-template-rows: repeat(3, 1fr)
+        @media(min-width: $desktop)
+            grid-template-columns: repeat(4, 1fr)
+            grid-template-rows: repeat(4, 1fr)
+
         div.casting
-            border: 1px solid black
-            margin-bottom: 20px
+            border: 1px solid $tertiary
+            margin: 20px
             padding: 20px
             border-radius: 15px
             min-width: 200px
@@ -67,18 +124,60 @@ body
                 text-decoration: none
                 padding: 10px
                 border-radius: 15px
-                background-color: #749F82
+                background-color: $secondary
                 &:hover
-                    color: #CFFF8D
+                    color: $quaternary
                     transition: 0.2s
-                    padding: 12px
+                    padding: 12px 10px
     form.search
         width: fit-content
         margin: 0 auto 35px
-    h1
+        input[type='text']
+            margin-bottom: 10px
+    h1, h2
         text-align: center
         padding: 0
-        color: #425F57
+        color: $main
         width: fit-content
         margin: 20px auto
-
+    form
+        display: flex
+        flex-direction: column
+        width: 200px
+        justify-content: center
+        margin: 0 auto
+        input
+            margin:  0  0 25px
+            padding: 5px
+        input:not(input[type='submit'], input[type='file'])
+            border-radius: 10px
+            border: 1px solid $main
+            background-color: $main
+            color: white
+            &:focus
+                outline: none
+                border: 1px solid $quaternary
+        label
+            color: $main
+            margin: 0 0 5px
+        button[type='submit'], input[type='submit']
+            padding: 5px
+            border-radius: 10px
+            border: 1px solid $secondary
+            background-color: $secondary
+            color: white
+            &:focus
+                outline: none
+                border: 1px solid $quaternary
+            &:hover
+                color: $quaternary
+                transition: 0.2s
+    form#profil-form, form#pwd-form
+        width: 200px
+        margin-bottom: 50px
+        input:disabled
+            background-color: rgba(66, 95, 87, 0.5)
+        div
+            display: flex
+            flex-direction: column
+            width: 100%

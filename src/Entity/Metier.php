@@ -19,7 +19,7 @@ class Metier
     #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Metier')]
+    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'metiers')]
     #[ORM\JoinTable(name: 'Cherche')]
     private Collection $castings;
 

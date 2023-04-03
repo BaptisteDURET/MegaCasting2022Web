@@ -11,13 +11,13 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Table(name: 'Professionnel')]
 class Professionnel extends Utilisateur
 {
-    #[ORM\Column(length: 50, name: 'Entreprise')]
+    #[ORM\Column(name: 'Entreprise', length: 50)]
     private ?string $entreprise = null;
 
-    #[ORM\Column(type: 'boolean', name: 'Verifie')]
+    #[ORM\Column(name: 'Verifie', type: 'boolean')]
     private ?bool $verifie = null;
 
-    #[ORM\ManyToMany(targetEntity: PackDeCastings::class, mappedBy: 'Professionnel')]
+    #[ORM\ManyToMany(targetEntity: PackDeCastings::class, mappedBy: 'professionnel')]
     private Collection $packDeCastings;
 
     #[ORM\OneToMany(mappedBy: 'professionnel', targetEntity: Casting::class)]

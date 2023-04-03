@@ -83,13 +83,13 @@ class Casting
     #[ORM\JoinTable(name: 'Cherche')]
     #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
     #[ORM\InverseJoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
-    private Collection $metier;
+    private Collection $metiers;
 
     public function __construct()
     {
         $this->sexe = new ArrayCollection();
         $this->typeContrat = new ArrayCollection();
-        $this->metier = new ArrayCollection();
+        $this->metiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -342,21 +342,21 @@ class Casting
      */
     public function getMetier(): Collection
     {
-        return $this->metier;
+        return $this->metiers;
     }
 
-    public function addMetier(Metier $metier): self
+    public function addMetier(Metier $metiers): self
     {
-        if (!$this->metier->contains($metier)) {
-            $this->metier->add($metier);
+        if (!$this->metiers->contains($metiers)) {
+            $this->metiers->add($metiers);
         }
 
         return $this;
     }
 
-    public function removeMetier(Metier $metier): self
+    public function removeMetier(Metier $metiers): self
     {
-        $this->metier->removeElement($metier);
+        $this->metiers->removeElement($metiers);
 
         return $this;
     }

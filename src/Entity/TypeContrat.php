@@ -16,13 +16,13 @@ class TypeContrat
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 10, name: 'LibelleCourt')]
+    #[ORM\Column(name: 'LibelleCourt', length: 10)]
     private ?string $libelleCourt = null;
 
-    #[ORM\Column(length: 50, name: 'LibelleLong')]
+    #[ORM\Column(name: 'LibelleLong', length: 50)]
     private ?string $libelleLong = null;
 
-    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'TypeContrat')]
+    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'typeContrat')]
     #[ORM\JoinTable(name: 'Propose')]
     private Collection $castings;
 

@@ -16,13 +16,13 @@ class Sexe
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Libelle')]
+    #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'Sexe', targetEntity: Artiste::class)]
+    #[ORM\OneToMany(mappedBy: 'sexe', targetEntity: Artiste::class)]
     private Collection $artistes;
 
-    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'Sexe')]
+    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'sexe')]
     #[ORM\JoinTable(name: 'Recherche')]
     private Collection $castings;
 

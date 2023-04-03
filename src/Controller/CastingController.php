@@ -16,7 +16,7 @@ class CastingController extends AbstractController
         $intitule = null;
         if ($_GET)
         {
-            $intitule = $_GET['intitule'];
+            $intitule = $_GET['recherche'];
         }
         $castings = $entityManager->getRepository(Casting::class)->findAll();
         $result = null;

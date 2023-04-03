@@ -45,8 +45,9 @@ class CastingRepository extends ServiceEntityRepository
             ->select('c')
             ->where('c.intitule LIKE :libelle')
             ->orWhere('c.description LIKE :libelle')
-            ->orWhere('c.reference = :libelle')
+            ->orWhere('c.reference = :lib')
             ->setParameter('libelle', '%'.$libelle.'%')
+            ->setParameter('lib', $libelle)
             ->getQuery()
             ->getResult();
         return $query;

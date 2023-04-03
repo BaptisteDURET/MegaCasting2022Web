@@ -16,10 +16,10 @@ class DomaineMetier
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Libelle')]
+    #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'DomaineMetier', targetEntity: Metier::class)]
+    #[ORM\OneToMany(mappedBy: 'domaineMetier', targetEntity: Metier::class)]
     private Collection $metiers;
 
     public function __construct()

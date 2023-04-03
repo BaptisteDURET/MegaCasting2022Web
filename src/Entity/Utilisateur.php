@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping\InheritanceType;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
 #[ORM\Table(name: 'Utilisateur')]
@@ -17,7 +19,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[DiscriminatorColumn(name: 'discr', type: 'string')]
 #[DiscriminatorMap(['PartenaireDiffusion' => PartenaireDiffusion::class, 'Professionnel' => Professionnel::class, 'Artiste' => Artiste::class])]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
-class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
+class Utilisateur implements UserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -40,6 +42,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?array $roles = [];
 
     private ?string $discr = null;
+
+    #[ORM\Column(name: 'PhotoProfil', length: 255, nullable: true)]
+    #[Assert\Image(maxSize: "2M", mimeTypes: ["image/jpeg", "image/png"], detectCorrupted: true, maxSizeMessage: "Le fichier est trop volumineux, il doit faire maximum 2Mo", mimeTypesMessage: "Le fichier doit être une image au format jpeg ou png", corruptedMessage: "Le fichier est corrompu")]
+    private ?string $photoProfil = null;
 
 
     public function getId(): ?int
@@ -145,5 +151,17 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getPhotoProfil(): ?string
+    {
+        return $this->photoProfil;
+    }
+
+    public function setPhotoProfil(?string $photoProfil): self
+    {
+        $this->photoProfil = $photoProfil;
+
+        return $this;
     }
 }

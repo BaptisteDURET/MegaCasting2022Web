@@ -1,0 +1,43 @@
+{% extends '/base.html.twig' %}
+
+{% block body %}
+    <h1>Mon Profil</h1>
+    <h2>Informations personnels</h2>
+    <form id="profil-form" method="POST" enctype="multipart/form-data">
+        <div>
+            <label for="username">Nom d'utilisateur</label>
+            <input type="text" id="username" name="username" value="{{ app.user.nom }}" disabled>
+        </div>
+        <div>
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" value="{{ app.user.email }}">
+        </div>
+        <div>
+            <label for="phone">Numéro de Téléphone</label>
+            <input type="text" id="phone" name="phone" value="{{ app.user.numeroTelephone }}">
+        </div>
+        <label for="profilPicture">Photo de profil</label>
+        {% if app.user.photoProfil %}
+            <img src="{{ asset('/build/images/profilePictures/' ~ app.user.photoProfil) }}" class="profilPicture" alt="Photo de profil" />
+        {% else %}
+            <p>Aucune image</p>
+        {% endif %}
+        <input type="file" name="profilPicture" accept="image/png, image/jpeg" />
+        <input type="submit" value="Modifier" />
+    </form>
+    <h2>Changer de Mot de passe</h2>
+    <form id="pwd-form" method="POST" action="{{ path('profil') }}#pwd-form">
+        <div>
+            <label for="password">Nouveau mot de passe</label>
+            <input type="password" id="password" name="password" value="">
+        </div>
+        <div>
+            <label for="password_confirm">Confirmation du mot de passe</label>
+            <input type="password" id="password_confirm" name="password_confirm" value="">
+        </div>
+        <input type="submit" value="Modifier" />
+        {% if messagePassword %}
+            <p class="error">{{ messagePassword }}</p>
+        {% endif %}
+    </form>
+{% endblock %}

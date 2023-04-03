@@ -18,16 +18,16 @@ class PackDeCastings
     #[ORM\Column(name: 'Identifiant')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 50, name: 'Libelle')]
+    #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\Column(type: Types::SMALLINT, name: 'NombreCastings')]
+    #[ORM\Column(name: 'NombreCastings', type: Types::SMALLINT)]
     private ?int $nombreCastings = null;
 
-    #[ORM\Column(type: Types::FLOAT, name: 'Prix')]
+    #[ORM\Column(name: 'Prix', type: Types::INTEGER)]
     private ?float $prix = null;
 
-    #[ORM\Column(type: Types::SMALLINT, name: 'TempsDiffusionOffreEnHeures')]
+    #[ORM\Column(name: 'TempsDiffusionOffreEnHeures', type: Types::SMALLINT)]
     private ?int $tempsDiffusionOffreEnHeures = null;
 
     #[ORM\ManyToMany(targetEntity: Professionnel::class, inversedBy: 'packDeCastings')]
