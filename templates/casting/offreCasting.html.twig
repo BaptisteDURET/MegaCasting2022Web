@@ -1,22 +1,30 @@
 {% extends '/base.html.twig' %}
 {% block body %}
     {% if casting %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Identifiant</th>
-                    <th>Intitulé</th>
-                    <th>description</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{ casting.id }}</td>
-                    <td>{{ casting.Intitule }}</td>
-                    <td>{{ casting.description }}</td>
-                </tr>
-            </tbody>
-        </table>
+        <section class="casting">
+            <a href="{{ path('castings') }}" class="retour">&#8592; Retour à la liste</a>
+            <h1>{{ casting.Intitule }}</h1>
+            <p class="ref">Ref : {{ casting.Reference }}</p>
+            <p>Date de fin : {{ casting.DateDebutPublication|date_modify("+"~ casting.DureeDiffusion ~" hour")|date("d/m/Y H:i") }}</p>
+            <p>Nombre de Postes disponible : {{ casting.NombrePosteDispo }}</p>
+            <p>Description : <br/>{{ casting.Description }}</p>
+            <p>Profil recherché : <br/>{{ casting.DescriptionProfilRecherche }}</p>
+            <div class="contact">
+                <h2>Nous Contacter</h2>
+                {% if casting.Email %}
+                    <p>Adresse Mail : {{ casting.Email }}</p>
+                {% endif %}
+                {% if casting.NumeroTelephone %}
+                    <p>Numéro de Téléphone : {{ casting.NumeroTelephone }}</p>
+                {% endif %}
+                {% if casting.Fax %}
+                    <p>Fax : {{ casting.Fax }}</p>
+                {% endif %}
+                {% if casting.AdressePostale %}
+                    <p>Adresse Postale : {{ casting.AdressePostale }}</p>
+                {% endif %}
+            </div>
+        </section>
     {% else %}
         <p>Ce casting n'existe pas.</p>
     {% endif %}

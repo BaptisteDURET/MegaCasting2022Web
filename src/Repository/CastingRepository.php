@@ -39,8 +39,9 @@ class CastingRepository extends ServiceEntityRepository
         }
     }
 
-    public function findByIntitule(string $libelle) : array
+    public function findBySearch(string $libelle, string $domaine, string $metier, string $contrat) : array
     {
+//        dd($libelle, $domaine, $metier, $contrat);
         $query = $this->createQueryBuilder('c')
             ->select('c')
             ->where('c.intitule LIKE :libelle')

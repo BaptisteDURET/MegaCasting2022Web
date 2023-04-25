@@ -134,6 +134,23 @@ body
         margin: 0 auto 35px
         input[type='text']
             margin-bottom: 10px
+        section#filtres
+            display: flex
+            div
+                margin: 0 15px 15px 0
+                select
+                    margin-top: 5px
+                    border-radius: 10px
+                    border: 1px solid $main
+                    background-color: $main
+                    color: white
+                    font-size: 15px
+                    padding: 5px
+                &:focus
+                    outline: none
+                    border: 1px solid $quaternary
+            div:last-child
+                margin: 0 0 15px 0
     h1, h2
         text-align: center
         padding: 0
@@ -181,3 +198,26 @@ body
             display: flex
             flex-direction: column
             width: 100%
+    section.casting
+        padding: 20px 10px
+        a.retour
+            color: white
+            text-decoration: none
+            margin: 0 0 20px
+            display: block
+            background-color: $main
+            width: fit-content
+            padding: 5px
+            border-radius: 25px
+            &:hover
+                color: $quaternary
+                transition: 0.2s
+        h1
+            font-size: 30px
+            margin: 0
+        h2
+            font-size: 20px
+            margin: 0
+        p.ref
+            font-size: 15px
+            margin: 0

@@ -1,8 +1,43 @@
 {% extends '/base.html.twig' %}
 {% block body %}
+
     <h1>Liste des castings</h1>
     <form method="GET" class="search">
-        <input type="text" name="recherche" value={{ value ? value : '' }}>
+        <section id="filtres">
+            <div class="domaines">
+                <label for="domaine">Domaine Métier</label>
+                <br/>
+                <select name="domaine">
+                    <option name="tous">Tous</option>
+                    {% for domaineMetier in filters.domainesMetiers %}
+                        <option name="{{ domaineMetier.libelle }}">{{ domaineMetier.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="metiers">
+                <label for="metier">Métier</label>
+                <br/>
+                <select name="metier">
+                    <option name="tous">Tous</option>
+                    {% for metier in filters.metiers %}
+                        <option name="{{ metier.libelle }}">{{ metier.libelle }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="TypesContrats">
+                <label for="TypesContrat">Type de Contrat</label>
+                <br/>
+                <select name="TypesContrat">
+                    <option name="tous">Tous</option>
+
+                    {% for typeContrat in filters.typesContrats %}
+                        <option name="{{ typeContrat.libelleCourt }}">{{ typeContrat.libelleCourt }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </section>
+        <input type="text" name="recherche" value="{{ value ? value : '' }}">
         <input type="submit" value="Rechercher">
     </form>
     <section id="container-castings">

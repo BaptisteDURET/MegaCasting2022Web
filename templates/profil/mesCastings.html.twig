@@ -1,0 +1,18 @@
+{% extends '/base.html.twig' %}
+
+{% block body %}
+    <h1>Mes Castings</h1>
+    {% if mesCastings != null %}
+        <section id="container-castings">
+            {% for casting in mesCastings %}
+                    <div class="casting">
+                        <h2>{{ casting.Intitule }}</h2>
+                        <p>{{ casting.description }}</p>
+                        <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
+                    </div>
+            {% endfor %}
+        </section>
+    {% else %}
+        <p>Vous n'avez pas encore de casting</p>
+    {% endif %}
+{% endblock %}
