@@ -63,33 +63,25 @@ class Casting
     #[ORM\Column(name: 'Verifie')]
     private ?bool $verifie = null;
 
-    #[ORM\ManyToOne(inversedBy: 'Casting', targetEntity: Professionnel::class)]
-    #[ORM\JoinColumn(name: 'Identifiant_Professionnel', nullable: true, referencedColumnName: 'Identifiant')]
+    #[ORM\ManyToOne(targetEntity: Professionnel::class, inversedBy: 'Casting')]
+    #[ORM\JoinColumn(name: 'IdentifiantProfessionnel', referencedColumnName: 'Identifiant', nullable: true)]
     private ?Professionnel $professionnel = null;
 
-    #[ORM\ManyToMany(targetEntity: Sexe::class, inversedBy: 'castings')]
-    #[JoinTable(name: 'Recherche')]
+    #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'Casting')]
     #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
-    #[ORM\InverseJoinColumn(name: 'IdentifiantSexe', referencedColumnName: 'Identifiant')]
-    private Collection $sexe;
+    private ?Sexe $sexe;
 
-    #[ORM\ManyToMany(targetEntity: TypeContrat::class, inversedBy: 'castings')]
-    #[JoinTable(name: 'Propose')]
+    #[ORM\ManyToOne(targetEntity: TypeContrat::class, inversedBy: 'Casting')]
     #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
-    #[ORM\InverseJoinColumn(name: 'IdentifiantTypeContrat', referencedColumnName: 'Identifiant')]
-    private Collection $typeContrat;
+    private ?TypeContrat $typeContrat;
 
-    #[ORM\ManyToMany(targetEntity: Metier::class, inversedBy: 'castings')]
-    #[ORM\JoinTable(name: 'Cherche')]
+    #[ORM\ManyToOne(targetEntity: Metier::class, inversedBy: 'Casting')]
     #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
-    #[ORM\InverseJoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
-    private Collection $metiers;
+    private ?Metier $metiers;
 
     public function __construct()
     {
-        $this->sexe = new ArrayCollection();
-        $this->typeContrat = new ArrayCollection();
-        $this->metiers = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -289,78 +281,37 @@ class Casting
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sexe>
-     */
-    public function getSexe(): Collection
+    public function getSexe(): ?Sexe
     {
         return $this->sexe;
     }
 
-    public function addSexe(Sexe $sexe): self
+    public function setSexe(?Sexe $sexe): self
     {
-        if (!$this->sexe->contains($sexe)) {
-            $this->sexe->add($sexe);
-        }
+        $this->sexe = $sexe;
 
         return $this;
     }
-
-    public function removeSexe(Sexe $sexe): self
-    {
-        $this->sexe->removeElement($sexe);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, TypeContrat>
-     */
-    public function getTypeContrat(): Collection
+    public function getTypeContrat(): ?TypeContrat
     {
         return $this->typeContrat;
     }
-
-    public function addTypeContrat(TypeContrat $typeContrat): self
+    public function setTypeContrat(?TypeContrat $typeContrat): self
     {
-        if (!$this->typeContrat->contains($typeContrat)) {
-            $this->typeContrat->add($typeContrat);
-        }
+        $this->typeContrat = $typeContrat;
 
         return $this;
     }
-
-    public function removeTypeContrat(TypeContrat $typeContrat): self
-    {
-        $this->typeContrat->removeElement($typeContrat);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Metier>
-     */
-    public function getMetier(): Collection
+    public function getMetier(): ?Metier
     {
         return $this->metiers;
     }
-
-    public function addMetier(Metier $metiers): self
+    public function setMetier(?Metier $metiers): self
     {
-        if (!$this->metiers->contains($metiers)) {
-            $this->metiers->add($metiers);
-        }
+        $this->metiers = $metiers;
 
         return $this;
     }
-
-    public function removeMetier(Metier $metiers): self
-    {
-        $this->metiers->removeElement($metiers);
-
-        return $this;
-    }
-
     public function __toString(): string
     {
         return ''.$this.'';

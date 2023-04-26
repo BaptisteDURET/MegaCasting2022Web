@@ -22,14 +22,13 @@ class Sexe
     #[ORM\OneToMany(mappedBy: 'sexe', targetEntity: Artiste::class)]
     private Collection $artistes;
 
-    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'sexe')]
-    #[ORM\JoinTable(name: 'Recherche')]
-    private Collection $castings;
+    #[ORM\OneToMany(mappedBy: 'sexe', targetEntity: Casting::class)]
+    private Collection $casting;
 
     public function __construct()
     {
         $this->artistes = new ArrayCollection();
-        $this->castings = new ArrayCollection();
+        $this->casting = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -84,14 +83,14 @@ class Sexe
      */
     public function getCastings(): Collection
     {
-        return $this->castings;
+        return $this->casting;
     }
 
     public function addCasting(Casting $casting): self
     {
-        if (!$this->castings->contains($casting)) {
-            $this->castings->add($casting);
-            $casting->addSexe($this);
+        if (!$this->casting->contains($casting)) {
+            $this->casting->add($casting);
+            $casting->setSexe($this);
         }
 
         return $this;
@@ -99,8 +98,11 @@ class Sexe
 
     public function removeCasting(Casting $casting): self
     {
-        if ($this->castings->removeElement($casting)) {
-            $casting->removeSexe($this);
+        if ($this->casting->removeElement($casting)) {
+            // set the owning side to null (unless already changed)
+            if ($casting->getSexe() === $this) {
+                $casting->setSexe(null);
+            }
         }
 
         return $this;

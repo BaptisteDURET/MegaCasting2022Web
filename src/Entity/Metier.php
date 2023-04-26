@@ -19,9 +19,8 @@ class Metier
     #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToMany(targetEntity: Casting::class, mappedBy: 'metiers')]
-    #[ORM\JoinTable(name: 'Cherche')]
-    private Collection $castings;
+    #[ORM\OneToMany(mappedBy: 'metiers', targetEntity: Casting::class)]
+    private Collection $casting;
 
     #[ORM\ManyToOne(targetEntity: DomaineMetier::class, inversedBy: 'metiers')]
     #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', referencedColumnName: 'Identifiant', nullable: false)]
@@ -29,7 +28,7 @@ class Metier
 
     public function __construct()
     {
-        $this->castings = new ArrayCollection();
+        $this->casting = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,16 +51,16 @@ class Metier
     /**
      * @return Collection<int, Casting>
      */
-    public function getCastings(): Collection
+    public function getCasting(): Collection
     {
-        return $this->castings;
+        return $this->casting;
     }
 
     public function addCasting(Casting $casting): self
     {
-        if (!$this->castings->contains($casting)) {
-            $this->castings->add($casting);
-            $casting->addMetier($this);
+        if (!$this->casting->contains($casting)) {
+            $this->casting->add($casting);
+            $casting->setMetier($this);
         }
 
         return $this;
@@ -69,8 +68,11 @@ class Metier
 
     public function removeCasting(Casting $casting): self
     {
-        if ($this->castings->removeElement($casting)) {
-            $casting->removeMetier($this);
+        if ($this->Casting->removeElement($casting)) {
+            // set the owning side to null (unless already changed)
+            if ($casting->getMetier() === $this) {
+                $casting->setMetier(null);
+            }
         }
 
         return $this;
