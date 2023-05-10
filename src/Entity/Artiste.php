@@ -19,7 +19,7 @@ class Artiste extends Utilisateur
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'artistes')]
-    #[ORM\JoinColumn(name: 'Identifiant_Sexe', referencedColumnName: 'Identifiant', nullable: false)]
+    #[ORM\JoinColumn(name: 'IdentifiantSexe', referencedColumnName: 'Identifiant', nullable: false)]
     private ?Sexe $sexe = null;
 
     public function getCv(): ?string

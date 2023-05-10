@@ -23,11 +23,11 @@ class TypeContrat
     private ?string $libelleLong = null;
 
     #[ORM\OneToMany(mappedBy: 'typeContrat', targetEntity: Casting::class)]
-    private Collection $casting;
+    private Collection $castings;
 
     public function __construct()
     {
-        $this->casting = new ArrayCollection();
+        $this->castings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,18 +59,23 @@ class TypeContrat
         return $this;
     }
 
+    public function __toString(): string
+    {
+        return $this->libelleLong;
+    }
+
     /**
      * @return Collection<int, Casting>
      */
     public function getCastings(): Collection
     {
-        return $this->casting;
+        return $this->castings;
     }
 
     public function addCasting(Casting $casting): self
     {
-        if (!$this->casting->contains($casting)) {
-            $this->casting->add($casting);
+        if (!$this->castings->contains($casting)) {
+            $this->castings->add($casting);
             $casting->setTypeContrat($this);
         }
 
@@ -79,7 +84,7 @@ class TypeContrat
 
     public function removeCasting(Casting $casting): self
     {
-        if ($this->casting->removeElement($casting)) {
+        if ($this->castings->removeElement($casting)) {
             // set the owning side to null (unless already changed)
             if ($casting->getTypeContrat() === $this) {
                 $casting->setTypeContrat(null);
@@ -87,10 +92,5 @@ class TypeContrat
         }
 
         return $this;
-    }
-
-    public function __toString(): string
-    {
-        return $this->libelleLong;
     }
 }

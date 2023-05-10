@@ -4,52 +4,36 @@
     <h1>Liste des castings</h1>
     <form method="GET" class="search">
         <section id="filtres">
-            <div class="domaines">
-                <label for="domaine">Domaine Métier</label>
-                <br/>
-                <select name="domaine">
-                    <option name="tous">Tous</option>
-                    {% for domaineMetier in filters.domainesMetiers %}
-                        <option name="{{ domaineMetier.libelle }}">{{ domaineMetier.libelle }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-
             <div class="metiers">
                 <label for="metier">Métier</label>
                 <br/>
                 <select name="metier">
-                    <option name="tous">Tous</option>
-                    {% for metier in filters.metiers %}
-                        <option name="{{ metier.libelle }}">{{ metier.libelle }}</option>
-                    {% endfor %}
+                    <option value="0" name="tous">Tous</option>
+                    {% if filters.metiers is defined %}
+                        {% for metier in filters.metiers %}
+                            <option value="{{ metier.id }}" name="{{ metier.libelle }}">{{ metier.libelle }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
             <div class="TypesContrats">
                 <label for="TypesContrat">Type de Contrat</label>
                 <br/>
                 <select name="TypesContrat">
-                    <option name="tous">Tous</option>
-
-                    {% for typeContrat in filters.typesContrats %}
-                        <option name="{{ typeContrat.libelleCourt }}">{{ typeContrat.libelleCourt }}</option>
-                    {% endfor %}
+                    <option value="0" name="tous">Tous</option>
+                    {% if filters.typesContrats is defined %}
+                        {% for typeContrat in filters.typesContrats %}
+                            <option value="{{ typeContrat.id }}" name="{{ typeContrat.libelleCourt }}">{{ typeContrat.libelleCourt }}</option>
+                        {% endfor %}
+                    {% endif %}
                 </select>
             </div>
         </section>
-        <input type="text" name="recherche" value="{{ value ? value : '' }}">
+        <input type="text" name="recherche" value="{{ value is defined ? value : '' }}">
         <input type="submit" value="Rechercher">
     </form>
     <section id="container-castings">
-        {% if castings and not result %}
-                {% for casting in castings %}
-                    <div class="casting">
-                        <h2>{{ casting.Intitule }}</h2>
-                        <p>{{ casting.description }}</p>
-                        <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
-                    </div>
-                {% endfor %}
-        {% elseif result %}
+        {% if result is not empty and search == true %}
             {% for casting in result %}
                 <div class="casting">
                     <h2>{{ casting.Intitule }}</h2>
@@ -57,6 +41,15 @@
                     <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
                 </div>
             {% endfor %}
+        {% elseif castings and search is not defined %}
+            {{ dump(search) }}
+                {% for casting in castings %}
+                    <div class="casting">
+                        <h2>{{ casting.Intitule }}</h2>
+                        <p>{{ casting.description }}</p>
+                        <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
+                    </div>
+                {% endfor %}
         {% else %}
             <p>Aucun casting n'a été trouvé.</p>
         {% endif %}

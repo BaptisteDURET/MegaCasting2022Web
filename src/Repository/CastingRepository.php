@@ -39,19 +39,28 @@ class CastingRepository extends ServiceEntityRepository
         }
     }
 
-    public function findBySearch(string $libelle, string $domaine, string $metier, string $contrat) : array
+    public function findBySearch(string $libelle, string $metier, string $contrat) : array
     {
 //        dd($libelle, $domaine, $metier, $contrat);
         $query = $this->createQueryBuilder('c')
-            ->select('c')
             ->where('c.intitule LIKE :libelle')
             ->orWhere('c.description LIKE :libelle')
-            ->orWhere('c.reference = :lib')
+            ->orWhere('c.reference = :ref')
             ->setParameter('libelle', '%'.$libelle.'%')
-            ->setParameter('lib', $libelle)
-            ->getQuery()
-            ->getResult();
-        return $query;
+            ->setParameter('ref', $libelle);
+
+        if($metier != 0)
+        {
+            $query->andWhere('c.metiers = :metier')
+                ->setParameter('metier', $metier);
+        }
+        if($contrat != 0)
+        {
+            $query->andWhere('c.typeContrat = :contrat')
+                ->setParameter('contrat', $contrat);
+        }
+//        dd($query->getQuery()->getResult());
+        return $query->getQuery()->getResult();
     }
 
 //    /**

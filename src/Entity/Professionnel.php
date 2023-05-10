@@ -21,12 +21,12 @@ class Professionnel extends Utilisateur
     private Collection $packDeCastings;
 
     #[ORM\OneToMany(mappedBy: 'professionnel', targetEntity: Casting::class)]
-    private Collection $Casting;
+    private Collection $castings;
 
     public function __construct()
     {
         $this->packDeCastings = new ArrayCollection();
-        $this->Casting = new ArrayCollection();
+        $this->castings = new ArrayCollection();
     }
 
     public function getEntreprise(): ?string
@@ -79,19 +79,23 @@ class Professionnel extends Utilisateur
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->entreprise;
+    }
 
     /**
      * @return Collection<int, Casting>
      */
-    public function getCasting(): Collection
+    public function getCastings(): Collection
     {
-        return $this->Casting;
+        return $this->castings;
     }
 
     public function addCasting(Casting $casting): self
     {
-        if (!$this->Casting->contains($casting)) {
-            $this->Casting->add($casting);
+        if (!$this->castings->contains($casting)) {
+            $this->castings->add($casting);
             $casting->setProfessionnel($this);
         }
 
@@ -100,7 +104,7 @@ class Professionnel extends Utilisateur
 
     public function removeCasting(Casting $casting): self
     {
-        if ($this->Casting->removeElement($casting)) {
+        if ($this->castings->removeElement($casting)) {
             // set the owning side to null (unless already changed)
             if ($casting->getProfessionnel() === $this) {
                 $casting->setProfessionnel(null);
@@ -108,9 +112,5 @@ class Professionnel extends Utilisateur
         }
 
         return $this;
-    }
-    public function __toString(): string
-    {
-        return $this->entreprise;
     }
 }

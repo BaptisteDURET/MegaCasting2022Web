@@ -23,7 +23,7 @@ class Metier
     private Collection $casting;
 
     #[ORM\ManyToOne(targetEntity: DomaineMetier::class, inversedBy: 'metiers')]
-    #[ORM\JoinColumn(name: 'Identifiant_Domaine_Metier', referencedColumnName: 'Identifiant', nullable: false)]
+    #[ORM\JoinColumn(name: 'IdentifiantDomaineMetier', referencedColumnName: 'Identifiant', nullable: false)]
     private ?DomaineMetier $domaineMetier = null;
 
     public function __construct()

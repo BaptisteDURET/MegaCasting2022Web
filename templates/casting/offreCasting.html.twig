@@ -6,6 +6,9 @@
             <h1>{{ casting.Intitule }}</h1>
             <p class="ref">Ref : {{ casting.Reference }}</p>
             <p>Date de fin : {{ casting.DateDebutPublication|date_modify("+"~ casting.DureeDiffusion ~" hour")|date("d/m/Y H:i") }}</p>
+            <p>Metier : {{ foreignKeys.metier }}</p>
+            <p>Type de contrat : {{ foreignKeys.typeContrat }}</p>
+            <p>Sexe recherché : {{ foreignKeys.sexe != null ? foreignKeys.sexe : 'auncun sexe spécifié' }}</p>
             <p>Nombre de Postes disponible : {{ casting.NombrePosteDispo }}</p>
             <p>Description : <br/>{{ casting.Description }}</p>
             <p>Profil recherché : <br/>{{ casting.DescriptionProfilRecherche }}</p>

@@ -3,11 +3,9 @@
 namespace App\Entity;
 
 use App\Repository\CastingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use DateTimeInterface;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\ORM\Mapping\JoinTable;
 
 #[ORM\Entity(repositoryClass: CastingRepository::class)]
 #[ORM\Table(name: 'Casting')]
@@ -25,13 +23,13 @@ class Casting
     private ?string $intitule = null;
 
     #[ORM\Column(name: 'DateDebutPublication', type: Types::DATETIME_MUTABLE)]
-    private ?\DateTimeInterface $dateDebutPublication = null;
+    private ?DateTimeInterface $dateDebutPublication = null;
 
     #[ORM\Column(name: 'DureeDiffusion', type: Types::SMALLINT)]
     private ?int $dureeDiffusion = null;
 
     #[ORM\Column(name: 'DateDebutContrat', type: Types::DATE_MUTABLE)]
-    private ?\DateTimeInterface $dateDebutContrat = null;
+    private ?DateTimeInterface $dateDebutContrat = null;
 
     #[ORM\Column(name: 'NombrePosteDispo', type: Types::SMALLINT)]
     private ?int $nombrePosteDispo = null;
@@ -63,21 +61,21 @@ class Casting
     #[ORM\Column(name: 'Verifie')]
     private ?bool $verifie = null;
 
-    #[ORM\ManyToOne(targetEntity: Professionnel::class, inversedBy: 'Casting')]
-    #[ORM\JoinColumn(name: 'IdentifiantProfessionnel', referencedColumnName: 'Identifiant', nullable: true)]
-    private ?Professionnel $professionnel = null;
-
-    #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'Casting')]
-    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
-    private ?Sexe $sexe;
-
-    #[ORM\ManyToOne(targetEntity: TypeContrat::class, inversedBy: 'Casting')]
-    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
-    private ?TypeContrat $typeContrat;
-
-    #[ORM\ManyToOne(targetEntity: Metier::class, inversedBy: 'Casting')]
-    #[ORM\JoinColumn(name: 'IdentifiantCasting', referencedColumnName: 'Identifiant')]
+    #[ORM\ManyToOne(targetEntity: Metier::class, inversedBy: 'casting')]
+    #[ORM\JoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
     private ?Metier $metiers;
+
+    #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'castings')]
+    #[ORM\JoinColumn(name: 'IdentifiantSexe', referencedColumnName: 'Identifiant')]
+    private ?Sexe $sexe = null;
+
+    #[ORM\ManyToOne(targetEntity: TypeContrat::class, inversedBy: 'castings')]
+    #[ORM\JoinColumn(name: 'IdentifiantTypeContrat', referencedColumnName: 'Identifiant', nullable: false)]
+    private ?TypeContrat $typeContrat = null;
+
+    #[ORM\ManyToOne(targetEntity: Professionnel::class, inversedBy: 'castings')]
+    #[ORM\JoinColumn(name: 'IdentifiantProfessionnel', referencedColumnName: 'Identifiant', nullable: false)]
+    private ?Professionnel $professionnel = null;
 
     public function __construct()
     {
@@ -113,12 +111,12 @@ class Casting
         return $this;
     }
 
-    public function getDateDebutPublication(): ?\DateTimeInterface
+    public function getDateDebutPublication(): ?DateTimeInterface
     {
         return $this->dateDebutPublication;
     }
 
-    public function setDateDebutPublication(\DateTimeInterface $dateDebutPublication): self
+    public function setDateDebutPublication(DateTimeInterface $dateDebutPublication): self
     {
         $this->dateDebutPublication = $dateDebutPublication;
 
@@ -137,12 +135,12 @@ class Casting
         return $this;
     }
 
-    public function getDateDebutContrat(): ?\DateTimeInterface
+    public function getDateDebutContrat(): ?DateTimeInterface
     {
         return $this->dateDebutContrat;
     }
 
-    public function setDateDebutContrat(\DateTimeInterface $dateDebutContrat): self
+    public function setDateDebutContrat(DateTimeInterface $dateDebutContrat): self
     {
         $this->dateDebutContrat = $dateDebutContrat;
 
@@ -268,40 +266,6 @@ class Casting
 
         return $this;
     }
-
-    public function getProfessionnel(): ?Professionnel
-    {
-        return $this->professionnel;
-    }
-
-    public function setProfessionnel(?Professionnel $professionnel): self
-    {
-        $this->professionnel = $professionnel;
-
-        return $this;
-    }
-
-    public function getSexe(): ?Sexe
-    {
-        return $this->sexe;
-    }
-
-    public function setSexe(?Sexe $sexe): self
-    {
-        $this->sexe = $sexe;
-
-        return $this;
-    }
-    public function getTypeContrat(): ?TypeContrat
-    {
-        return $this->typeContrat;
-    }
-    public function setTypeContrat(?TypeContrat $typeContrat): self
-    {
-        $this->typeContrat = $typeContrat;
-
-        return $this;
-    }
     public function getMetier(): ?Metier
     {
         return $this->metiers;
@@ -314,6 +278,42 @@ class Casting
     }
     public function __toString(): string
     {
-        return ''.$this.'';
+        return ''.$this;
+    }
+
+    public function getSexe(): ?Sexe
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(?Sexe $Sexe): self
+    {
+        $this->sexe = $Sexe;
+
+        return $this;
+    }
+
+    public function getTypeContrat(): ?TypeContrat
+    {
+        return $this->typeContrat;
+    }
+
+    public function setTypeContrat(?TypeContrat $TypeContrat): self
+    {
+        $this->typeContrat = $TypeContrat;
+
+        return $this;
+    }
+
+    public function getProfessionnel(): ?Professionnel
+    {
+        return $this->professionnel;
+    }
+
+    public function setProfessionnel(?Professionnel $Professionnel): self
+    {
+        $this->professionnel = $Professionnel;
+
+        return $this;
     }
 }

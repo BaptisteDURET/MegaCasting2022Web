@@ -26,7 +26,6 @@ class CastingController extends AbstractController
         if ($_GET)
         {
             $intitule = $_GET['recherche'];
-            $domaine = $_GET['domaine'];
             $metier = $_GET['metier'];
             $typeContrat = $_GET['TypesContrat'];
 
@@ -37,7 +36,7 @@ class CastingController extends AbstractController
 
         if (isset($intitule) || isset($domaine) || isset($metier) || isset($typeContrat))
         {
-            $result = $entityManager->getRepository(Casting::class)->findBySearch($intitule, $domaine, $metier, $typeContrat);
+            $result = $entityManager->getRepository(Casting::class)->findBySearch($intitule, $metier, $typeContrat);
         }
 
         $metiers = $entityManager->getRepository(Metier::class)->findAll();
@@ -47,13 +46,14 @@ class CastingController extends AbstractController
         if ($castings == null) {
             return $this->render('casting/offresCasting.html.twig', array('castings' => null, 'route' => 'Aucun casting', 'controller_name' => 'Castings'));
         }
-//        dd($result);
+
         return $this->render('casting/offresCasting.html.twig',
             array(
                 'castings' => $castings,
                 'route' => 'Tous nos castings',
                 'controller_name' => 'Castings',
                 'result' => $result,
+                'search' => true,
                 'value' => $recherche->intitule ?? null,
                 'filters' => array(
                     'metiers' => $metiers,
@@ -71,8 +71,14 @@ class CastingController extends AbstractController
         if ($casting == null) {
             return $this->render('casting/offreCasting.html.twig', array('casting' => null, 'route' => 'Aucun casting', 'controller_name' => 'Casting'));
         }
-        $idCast = $casting->getId();
-        return $this->render('casting/offreCasting.html.twig', array('casting' => $casting, 'controller_name' => 'Casting n°' . $idCast));
+
+
+        $foreignKeys = [
+            'sexe' => $casting->getSexe()?->getLibelle(),
+            'typeContrat' => $casting->getTypeContrat()->getLibelleCourt(),
+            'metier' => $casting->getMetier()->getLibelle()
+        ];
+        return $this->render('casting/offreCasting.html.twig', array('casting' => $casting, 'controller_name' => 'Casting n°' . $casting->getId(), 'foreignKeys' => $foreignKeys));
     }
 
 }
