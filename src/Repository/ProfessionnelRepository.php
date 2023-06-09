@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Professionnel;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\DBAL\Connection;
+use http\Env\Response;
 
 /**
  * @extends ServiceEntityRepository<Professionnel>
@@ -39,6 +41,17 @@ class ProfessionnelRepository extends ServiceEntityRepository
         }
     }
 
+    public function buyPack(int $idPro, int $idPack, Connection $connection): void
+    {
+        $connection->executeQuery('INSERT INTO Acheter (IdentifiantProfessionnel, IdentifiantPack) VALUES (?, ?)', [$idPro, $idPack]);
+    }
+
+    public function getAllPacks(int $idPro, Connection $connection)
+    {
+        $result = $connection->executeQuery('SELECT * FROM Acheter INNER JOIN PackDeCastings ON Acheter.IdentifiantPack = PackDeCastings.Identifiant WHERE Acheter.IdentifiantProfessionnel = ?', [$idPro]);
+
+        return $result->fetchAllAssociative();
+    }
 //    /**
 //     * @return Professionnel[] Returns an array of Professionnel objects
 //     */

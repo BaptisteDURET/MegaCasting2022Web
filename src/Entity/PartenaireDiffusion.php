@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 class PartenaireDiffusion extends Utilisateur
 {
 
-    #[ORM\Column(name: 'Entreprise', length: 50)]
+    #[ORM\Column(name: 'Entreprise', length: 50, nullable: true)]
     private ?string $entreprise = null;
 
     #[ORM\Column(name: 'Verifie', type: 'boolean')]

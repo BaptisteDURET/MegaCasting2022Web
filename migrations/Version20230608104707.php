@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230504085758 extends AbstractMigration
+final class Version20230608104707 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,7 +20,7 @@ final class Version20230504085758 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('CREATE TABLE Artiste (CV NVARCHAR(200) NOT NULL, Prenom NVARCHAR(50) NOT NULL, IdentifiantSexe INT NOT NULL, Identifiant INT NOT NULL, PRIMARY KEY (Identifiant))');
+        $this->addSql('CREATE TABLE Artiste (CV NVARCHAR(200), IdentifiantSexe INT NOT NULL, Identifiant INT NOT NULL, PRIMARY KEY (Identifiant))');
         $this->addSql('CREATE INDEX IDX_53BA0CD3F1B75433 ON Artiste (IdentifiantSexe)');
         $this->addSql('CREATE TABLE Casting (Identifiant INT IDENTITY NOT NULL, Reference NVARCHAR(60) NOT NULL, Intitule NVARCHAR(150) NOT NULL, DateDebutPublication DATETIME2(6) NOT NULL, DureeDiffusion SMALLINT NOT NULL, DateDebutContrat DATE NOT NULL, NombrePosteDispo SMALLINT NOT NULL, Localisation NVARCHAR(150) NOT NULL, Description VARCHAR(MAX) NOT NULL, DescriptionProfilRecherche VARCHAR(MAX) NOT NULL, Email NVARCHAR(150), NumeroTelephone NVARCHAR(15), Fax NVARCHAR(150), SiteWeb NVARCHAR(100), AdressePostale NVARCHAR(200), Verifie BIT NOT NULL, IdentifiantMetier INT, IdentifiantSexe INT, IdentifiantTypeContrat INT NOT NULL, IdentifiantProfessionnel INT NOT NULL, PRIMARY KEY (Identifiant))');
         $this->addSql('CREATE INDEX IDX_1EA683CC525B950 ON Casting (IdentifiantMetier)');
@@ -64,7 +64,6 @@ final class Version20230504085758 extends AbstractMigration
 
     public function down(Schema $schema): void
     {
-        // this down() migration is auto-generated, please modify it to your needs
         $this->addSql('ALTER TABLE Artiste DROP CONSTRAINT FK_53BA0CD3F1B75433');
         $this->addSql('ALTER TABLE Artiste DROP CONSTRAINT FK_53BA0CD34F98863B');
         $this->addSql('ALTER TABLE Casting DROP CONSTRAINT FK_1EA683CC525B950');

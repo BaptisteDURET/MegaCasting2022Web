@@ -1,0 +1,19 @@
+{% extends '/base.html.twig' %}
+
+{% block body %}
+    <h1>Mes Packs</h1>
+    {% if packs is not empty %}
+        <section id="container-packs">
+            {% for pack in packs %}
+                <div class="pack">
+                    <h2>{{ pack.Libelle }}</h2>
+                    <p>Nombre de postes disponibles : {{ pack.NombreCastings }}</p>
+                    <p>Temps de diffusion de chaque offre : {{ pack.TempsDiffusionOffreEnHeures }} heures</p>
+                </div>
+            {% endfor %}
+        </section>
+    {% else %}
+        <p>Vous ne possédez aucun packs.</p>
+    {% endif %}
+
+{% endblock %}

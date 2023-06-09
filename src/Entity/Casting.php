@@ -63,7 +63,7 @@ class Casting
 
     #[ORM\ManyToOne(targetEntity: Metier::class, inversedBy: 'casting')]
     #[ORM\JoinColumn(name: 'IdentifiantMetier', referencedColumnName: 'Identifiant')]
-    private ?Metier $metiers;
+    private ?Metier $metier = null;
 
     #[ORM\ManyToOne(targetEntity: Sexe::class, inversedBy: 'castings')]
     #[ORM\JoinColumn(name: 'IdentifiantSexe', referencedColumnName: 'Identifiant')]
@@ -268,11 +268,11 @@ class Casting
     }
     public function getMetier(): ?Metier
     {
-        return $this->metiers;
+        return $this->metier;
     }
-    public function setMetier(?Metier $metiers): self
+    public function setMetier(?Metier $metier): self
     {
-        $this->metiers = $metiers;
+        $this->metier = $metier;
 
         return $this;
     }

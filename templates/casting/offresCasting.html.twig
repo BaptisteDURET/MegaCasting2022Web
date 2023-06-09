@@ -7,7 +7,7 @@
             <div class="metiers">
                 <label for="metier">Métier</label>
                 <br/>
-                <select name="metier">
+                <select id="metier" name="metier">
                     <option value="0" name="tous">Tous</option>
                     {% if filters.metiers is defined %}
                         {% for metier in filters.metiers %}
@@ -19,7 +19,7 @@
             <div class="TypesContrats">
                 <label for="TypesContrat">Type de Contrat</label>
                 <br/>
-                <select name="TypesContrat">
+                <select id="TypesContrat" name="TypesContrat">
                     <option value="0" name="tous">Tous</option>
                     {% if filters.typesContrats is defined %}
                         {% for typeContrat in filters.typesContrats %}
@@ -33,7 +33,7 @@
         <input type="submit" value="Rechercher">
     </form>
     <section id="container-castings">
-        {% if result is not empty and search == true %}
+        {% if result is defined and result is not empty and search == true %}
             {% for casting in result %}
                 <div class="casting">
                     <h2>{{ casting.Intitule }}</h2>
@@ -41,8 +41,7 @@
                     <a href="{{ path('casting', {'id': casting.id}) }}">Voir le casting</a>
                 </div>
             {% endfor %}
-        {% elseif castings and search is not defined %}
-            {{ dump(search) }}
+        {% elseif castings and search == false %}
                 {% for casting in castings %}
                     <div class="casting">
                         <h2>{{ casting.Intitule }}</h2>

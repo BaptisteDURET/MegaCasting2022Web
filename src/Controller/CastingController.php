@@ -6,6 +6,7 @@ use App\Entity\Casting;
 use App\Entity\DomaineMetier;
 use App\Entity\Metier;
 use App\Entity\TypeContrat;
+use App\Form\CreateCastingType;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,6 +22,7 @@ class CastingController extends AbstractController
         $domaine = null;
         $metier = null;
         $typeContrat = null;
+        $search = false;
 
 
         if ($_GET)
@@ -37,6 +39,7 @@ class CastingController extends AbstractController
         if (isset($intitule) || isset($domaine) || isset($metier) || isset($typeContrat))
         {
             $result = $entityManager->getRepository(Casting::class)->findBySearch($intitule, $metier, $typeContrat);
+            $search = true;
         }
 
         $metiers = $entityManager->getRepository(Metier::class)->findAll();
@@ -53,7 +56,7 @@ class CastingController extends AbstractController
                 'route' => 'Tous nos castings',
                 'controller_name' => 'Castings',
                 'result' => $result,
-                'search' => true,
+                'search' => $search,
                 'value' => $recherche->intitule ?? null,
                 'filters' => array(
                     'metiers' => $metiers,
@@ -79,6 +82,29 @@ class CastingController extends AbstractController
             'metier' => $casting->getMetier()->getLibelle()
         ];
         return $this->render('casting/offreCasting.html.twig', array('casting' => $casting, 'controller_name' => 'Casting n°' . $casting->getId(), 'foreignKeys' => $foreignKeys));
+    }
+
+    #[Route('/create/casting', name: 'create_casting')]
+    public function CreateCasting(EntityManagerInterface $entityManager): Response
+    {
+
+        if (!in_array('ROLE_PROFESSIONNEL', $this->getUser()->getRoles()))
+        {
+            return $this->redirectToRoute('home');
+        }
+
+        $form = $this->createForm(CreateCastingType::class, new Casting());
+
+        if ($form->isSubmitted()) {
+            dd('ok');
+            $casting = $form->getData();
+            $casting->setProfessionnel($this->getUser());
+            $entityManager->persist($casting);
+            $entityManager->flush();
+            return $this->redirectToRoute('castings');
+        }
+
+        return $this->render('casting/createCasting.html.twig', array('form' => $form->createView(), 'controller_name' => 'Créer un casting'));
     }
 
 }

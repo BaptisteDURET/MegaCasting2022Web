@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Professionnel;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -92,19 +93,34 @@ class ProfilController extends AbstractController
         ]);
     }
 
-    #[IsGranted('ROLE_USER')]
-    #[Route('/profil/mescastings', name: 'mesCastings')]
-    public function MesCastings(EntityManagerInterface $entityManager) : Response
+    #[Route('/profil/mespacks', name: 'mes_packs')]
+    public function MesPacks(EntityManagerInterface $entityManager)
     {
         if (!$this->getUser() ) {
             return $this->redirectToRoute('login');
         }
 
-        $mesCastings = $this->getUser()->getCasting();
+        $packs = $entityManager->getRepository(Professionnel::class)->getAllPacks($this->getUser()->getId(), connection: $entityManager->getConnection());
 
-        return $this->render('profil/mesCastings.html.twig', [
-            'controller_name' => 'Mes castings',
-            'mesCastings' => $mesCastings
+//        dd($packs);
+        return $this->render('profil/mesPacks.html.twig', [
+            'controller_name' => 'Mes packs',
+            'packs' => $packs
         ]);
     }
+//    #[IsGranted('ROLE_USER')]
+//    #[Route('/profil/mescastings', name: 'mesCastings')]
+//    public function MesCastings(EntityManagerInterface $entityManager) : Response
+//    {
+//        if (!$this->getUser() ) {
+//            return $this->redirectToRoute('login');
+//        }
+//
+//        $mesCastings = $this->getUser()->getCasting();
+//
+//        return $this->render('profil/mesCastings.html.twig', [
+//            'controller_name' => 'Mes castings',
+//            'mesCastings' => $mesCastings
+//        ]);
+//    }
 }

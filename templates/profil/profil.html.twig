@@ -25,6 +25,14 @@
         <input type="file" name="profilPicture" accept="image/png, image/jpeg" />
         <input type="submit" value="Modifier" />
     </form>
+
+    {% if 'ROLE_PARTENAIRE' in app.user.roles %}
+        <section id="acces-api">
+            <h2>Accès API</h2>
+            <p>Récupérer tous les castings : <span>https://10.192.97.8/api/casting/all</span></p>
+            <p>Récupérer un casting : <span>https://10.192.97.8/api/casting/{id}</span></p>
+        </section>
+    {% endif %}
     <h2>Changer de Mot de passe</h2>
     <form id="pwd-form" method="POST" action="{{ path('profil') }}#pwd-form">
         <div>

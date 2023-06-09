@@ -10,11 +10,20 @@
                 <li>
                     <a href="{{ path('castings') }}">Castings</a>
                 </li>
+                {% if app.user is not null and 'ROLE_PROFESSIONNEL' in app.user.roles %}
+                    <li>
+                        <a href="{{ path('afficher_packs') }}">Packs</a>
+                    </li>
+
+                    <li>
+                        <a href="{{ path('create_casting') }}" class="castings">Poster</a>
+                    </li>
+                {% endif %}
                 <li>
                     {% if not app.user %}
                         <ul class="authentification">
                             <li>
-                                <a href="{{ path('register') }}" class="register">Créer un compte</a>
+                                <a href="{{ path('register_type') }}" class="register">Créer un compte</a>
                             </li>
                             <li>
                                 <a href="{{ path('login') }}" class="login">Se connecter</a>
@@ -27,6 +36,12 @@
                                 <ul id="list-profil">
                                     <li>
                                         <a href="{{ path('profil') }}" class="profile">Mon profil</a>
+                                    </li>
+                                    {% if app.user is not null and 'ROLE_PROFESSIONNEL' in app.user.roles %}
+                                        <li>
+                                            <a href="{{ path('mes_packs') }}" class="packs">Mes packs</a>
+                                        </li>
+                                    {% endif %}
                                     <li>
                                         <a href="{{ path('logout') }}" class="logout">Se déconnecter</a>
                                     </li>

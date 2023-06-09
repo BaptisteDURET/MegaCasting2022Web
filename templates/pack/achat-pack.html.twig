@@ -1,0 +1,20 @@
+{% extends '/base.html.twig' %}
+
+{% block body %}
+    <h1>Achat de packs de castings</h1>
+    {% if packs is not empty %}
+        <section id="container-packs">
+            {% for pack in packs %}
+                <div class="pack">
+                    <h2>{{ pack.libelle }}</h2>
+                    <p>Nombre de postes disponibles : {{ pack.nombreCastings }}</p>
+                    <p>Temps de diffusion de chaque offre : {{ pack.tempsDiffusionOffreEnHeures }} heures</p>
+                    <p>{{ pack.prix }} €</p>
+                    <a href="/pack/{{ pack.id }}/buy" class="btn-buy">Acheter</a>
+                </div>
+            {% endfor %}
+        </section>
+    {% else %}
+        <p>Il n'y a pas de packs de castings à acheter pour le moment.</p>
+    {% endif %}
+{% endblock %}

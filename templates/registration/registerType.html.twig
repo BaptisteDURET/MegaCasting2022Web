@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+    <h1>Register</h1>
+    <form action="{{ path('register') }}" method="post" id="formtype">
+        <label for="type">Vous êtes un(e) :</label>
+        <select id="type" name="type">
+            <option value="Artiste">Artiste</option>
+            <option value="Professionnel">Professionnel</option>
+            <option value="Partenaire">Partenaire de diffusion</option>
+        </select>
+        <button type="submit" class="btn">Suivant</button>
+    </form>
+{% endblock %}

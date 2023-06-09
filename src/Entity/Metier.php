@@ -19,10 +19,10 @@ class Metier
     #[ORM\Column(name: 'Libelle', length: 50)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'metiers', targetEntity: Casting::class)]
+    #[ORM\OneToMany(mappedBy: 'metier', targetEntity: Casting::class)]
     private Collection $casting;
 
-    #[ORM\ManyToOne(targetEntity: DomaineMetier::class, inversedBy: 'metiers')]
+    #[ORM\ManyToOne(targetEntity: DomaineMetier::class, inversedBy: 'metier')]
     #[ORM\JoinColumn(name: 'IdentifiantDomaineMetier', referencedColumnName: 'Identifiant', nullable: false)]
     private ?DomaineMetier $domaineMetier = null;
 

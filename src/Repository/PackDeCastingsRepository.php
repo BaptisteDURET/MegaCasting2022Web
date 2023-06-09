@@ -38,7 +38,6 @@ class PackDeCastingsRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
-
 //    /**
 //     * @return PackDeCastings[] Returns an array of PackDeCastings objects
 //     */
