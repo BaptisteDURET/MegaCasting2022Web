@@ -102,7 +102,6 @@ class ProfilController extends AbstractController
 
         $packs = $entityManager->getRepository(Professionnel::class)->getAllPacks($this->getUser()->getId(), connection: $entityManager->getConnection());
 
-//        dd($packs);
         return $this->render('profil/mesPacks.html.twig', [
             'controller_name' => 'Mes packs',
             'packs' => $packs

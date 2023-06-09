@@ -58,7 +58,6 @@ class CastingRepository extends ServiceEntityRepository
             $query->andWhere('c.typeContrat = :contrat')
                 ->setParameter('contrat', $contrat);
         }
-//        dd($query->getQuery()->getResult());
         return $query->getQuery()->getResult();
     }
 

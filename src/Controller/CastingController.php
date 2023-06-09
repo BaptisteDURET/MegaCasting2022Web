@@ -96,7 +96,6 @@ class CastingController extends AbstractController
         $form = $this->createForm(CreateCastingType::class, new Casting());
 
         if ($form->isSubmitted()) {
-            dd('ok');
             $casting = $form->getData();
             $casting->setProfessionnel($this->getUser());
             $entityManager->persist($casting);
