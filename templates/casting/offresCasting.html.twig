@@ -28,6 +28,19 @@
                     {% endif %}
                 </select>
             </div>
+            {% if app.user and 'ROLE_ARTISTE' in app.user.roles %}
+                <div class="Region">
+                    <label for="region">Region</label>
+                    <select id="region" name="region">
+                        <option value="0" name="tous">Tous</option>
+                        {% if filters.regions is defined %}
+                            {% for region in filters.regions %}
+                                <option value="{{ region.id }}" name="{{ region.nom }}">{{ region.nom }}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            {% endif %}
         </section>
         <input type="text" name="recherche" value="{{ value is defined ? value : '' }}">
         <input type="submit" value="Rechercher">

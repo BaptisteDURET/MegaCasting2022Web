@@ -77,6 +77,10 @@ class Casting
     #[ORM\JoinColumn(name: 'IdentifiantProfessionnel', referencedColumnName: 'Identifiant', nullable: false)]
     private ?Professionnel $professionnel = null;
 
+    #[ORM\ManyToOne(targetEntity: Region::class ,inversedBy: 'castings')]
+    #[ORM\JoinColumn(name: 'IdentifiantRegion', referencedColumnName: 'Identifiant')]
+    private ?Region $Region = null;
+
     public function __construct()
     {
 
@@ -313,6 +317,18 @@ class Casting
     public function setProfessionnel(?Professionnel $Professionnel): self
     {
         $this->professionnel = $Professionnel;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->Region;
+    }
+
+    public function setRegion(?Region $Region): self
+    {
+        $this->Region = $Region;
 
         return $this;
     }

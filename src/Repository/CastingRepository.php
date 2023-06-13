@@ -39,7 +39,7 @@ class CastingRepository extends ServiceEntityRepository
         }
     }
 
-    public function findBySearch(string $libelle, string $metier, string $contrat) : array
+    public function findBySearch(string $libelle, string $metier, string $contrat, string| null $region) : array
     {
         $query = $this->createQueryBuilder('c')
             ->where('c.intitule LIKE :libelle')
@@ -57,6 +57,11 @@ class CastingRepository extends ServiceEntityRepository
         {
             $query->andWhere('c.typeContrat = :contrat')
                 ->setParameter('contrat', $contrat);
+        }
+        if($region != 0)
+        {
+            $query->andWhere('c.Region = :region')
+                ->setParameter('region', $region);
         }
         return $query->getQuery()->getResult();
     }

@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Casting;
 use App\Entity\DomaineMetier;
 use App\Entity\Metier;
+use App\Entity\Region;
 use App\Entity\TypeContrat;
 use App\Form\CreateCastingType;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -22,37 +23,49 @@ class CastingController extends AbstractController
         $domaine = null;
         $metier = null;
         $typeContrat = null;
+        $region = null;
         $search = false;
 
 
-        if ($_GET)
-        {
+        if ($_GET) {
             $intitule = $_GET['recherche'];
             $metier = $_GET['metier'];
             $typeContrat = $_GET['TypesContrat'];
-
+            if ($this->getUser() && in_array('ROLE_ARTISTE', $this->getUser()->getRoles()))
+            {
+                $region = $_GET['region'];
+            }
         }
 
-        $castings = $entityManager->getRepository(Casting::class)->findAll();
         $result = null;
 
-        if (isset($intitule) || isset($domaine) || isset($metier) || isset($typeContrat))
+        if (isset($intitule) || isset($domaine) || isset($metier) || isset($typeContrat) || isset($region))
         {
-            $result = $entityManager->getRepository(Casting::class)->findBySearch($intitule, $metier, $typeContrat);
+            $result = $entityManager->getRepository(Casting::class)->findBySearch($intitule, $metier, $typeContrat, $region);
             $search = true;
+        } else {
+            $result = $entityManager->getRepository(Casting::class)->findAll();
         }
 
         $metiers = $entityManager->getRepository(Metier::class)->findAll();
+        $regions = $entityManager->getRepository(Region::class)->findAll();
         $domainesMetiers = $entityManager->getRepository(DomaineMetier::class)->findAll();
         $typesContrats = $entityManager->getRepository(TypeContrat::class)->findAll();
 
-        if ($castings == null) {
-            return $this->render('casting/offresCasting.html.twig', array('castings' => null, 'route' => 'Aucun casting', 'controller_name' => 'Castings'));
+
+        if ($result == null) {
+            return $this->render('casting/offresCasting.html.twig', array('castings' => null, 'route' => 'Aucun casting', 'controller_name' => 'Castings',
+                'filters' => array(
+                    'metiers' => $metiers,
+                    'domainesMetiers' => $domainesMetiers,
+                    'typesContrats' => $typesContrats,
+                    'regions' => $regions
+                )));
         }
 
         return $this->render('casting/offresCasting.html.twig',
             array(
-                'castings' => $castings,
+                'castings' => $result,
                 'route' => 'Tous nos castings',
                 'controller_name' => 'Castings',
                 'result' => $result,
@@ -61,7 +74,8 @@ class CastingController extends AbstractController
                 'filters' => array(
                     'metiers' => $metiers,
                     'domainesMetiers' => $domainesMetiers,
-                    'typesContrats' => $typesContrats
+                    'typesContrats' => $typesContrats,
+                    'regions' => $regions
                 )
             )
         );
